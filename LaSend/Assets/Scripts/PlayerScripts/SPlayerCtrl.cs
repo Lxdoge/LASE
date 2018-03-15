@@ -44,7 +44,9 @@ public class SPlayerCtrl : MonoBehaviour {
     bool grounded;                     //落地检验
     bool jumpInitial;                  //跳跃初次启动确认
     float jumpTimer;                   //跳跃判断剩余时间
-
+    /// <summary>
+    ///  ////////////////////////攻击变量/////////////////////////////////
+    /// </summary>
 
     // 初始化
     void Start()
@@ -60,18 +62,32 @@ public class SPlayerCtrl : MonoBehaviour {
 
     // 每帧检测并更新状态
     void Update () {
+        if (animator.GetBool("Attack"))
+            return;
         hor = Input.GetAxis("SHorizontal");
         //根据移动方向翻转角色朝向
+        
         if (hor > 0 && !facingRight)
             Flip();
         else if (hor < 0 && facingRight)
             Flip();
         GroundCheck();
-        if (grounded && animator.GetBool("Jump"))
+        AttackCheck();
+        switch (status)
         {
-            animator.SetBool("Jump", false);
+            case Status.down:
+                animator.SetFloat("SpeedY", rBody.velocity.y);
+                break;
+            case Status.up:
+                animator.SetFloat("SpeedY", -rBody.velocity.y);
+                break;
+            case Status.right:
+                animator.SetFloat("SpeedY", -rBody.velocity.x);
+                break;
+            case Status.left:
+                animator.SetFloat("SpeedY", rBody.velocity.x);
+                break;
         }
-        animator.SetFloat("SpeedY", rBody.velocity.y);
         JumpCheck();
         GChangeCheck();
     }
@@ -132,6 +148,8 @@ public class SPlayerCtrl : MonoBehaviour {
     {
         if (grounded && Input.GetButtonDown("SJump"))
         {
+            if (animator.GetBool("Attack"))
+                return;
             //确认跳跃状态
             jump = true;
             //确认跳跃动作（Jump）是初次启动
@@ -176,6 +194,11 @@ public class SPlayerCtrl : MonoBehaviour {
     }
     void FixupGDown()
     {
+        if (animator.GetBool("Attack"))
+        {
+            MoveGHor(0);
+            return;
+        }
         //水平移动（direction==0无限制时，以下写法影响惯性）
         if (hor == 1)
             MoveGHor(1);
@@ -189,6 +212,11 @@ public class SPlayerCtrl : MonoBehaviour {
     }
     void FixupGUp()
     {
+        if (animator.GetBool("Attack"))
+        {
+            MoveGHor(0);
+            return;
+        }
         //水平移动（direction==0无限制时，以下写法影响惯性）
         if (hor == 1)
             MoveGHor(-1);
@@ -236,6 +264,11 @@ public class SPlayerCtrl : MonoBehaviour {
     }
     void FixupGRight()
     {
+        if (animator.GetBool("Attack"))
+        {
+            MoveGVer(0);
+            return;
+        }
         //水平移动（direction==0无限制时，以下写法影响惯性）
         if (hor == 1)
             MoveGVer(1);
@@ -249,6 +282,11 @@ public class SPlayerCtrl : MonoBehaviour {
     }
     void FixupGLeft()
     {
+        if (animator.GetBool("Attack"))
+        {
+            MoveGVer(0);
+            return;
+        }
         //水平移动（direction==0无限制时，以下写法影响惯性）
         if (hor == 1)
             MoveGVer(-1);
@@ -275,5 +313,13 @@ public class SPlayerCtrl : MonoBehaviour {
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+    }
+    //攻击
+    void AttackCheck()
+    {
+        if (Input.GetButtonDown("SAttack") && grounded)
+        {
+            animator.SetBool("Attack", true);
+        }
     }
 }
