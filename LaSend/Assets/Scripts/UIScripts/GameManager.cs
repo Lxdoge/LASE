@@ -93,4 +93,13 @@ public class GameManager : MonoBehaviour {
     {
         Debug.Log("pd_pos" + pd.lPlayer_Pos);
     }
+    public int level_max = 100;//暂时设置一个变量为当前已解锁的关卡数
+    public void select_level(int levelnum)
+    {
+        if (levelnum <= level_max)
+        {
+            SceneManager.LoadScene("level" + levelnum);//其实是要加载到某存档点的
+        }
+    }
+        
 }
