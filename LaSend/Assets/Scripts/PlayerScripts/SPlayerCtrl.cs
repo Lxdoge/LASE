@@ -240,6 +240,7 @@ public class SPlayerCtrl : MonoBehaviour {
         //否则，限制移动速度
         if (direction * rBody.velocity.y > moveSpeed + direction * hSpeed || direction == 0)//direction == 0影响惯性
             rBody.velocity = new Vector2(rBody.velocity.x, direction * moveSpeed + hSpeed);
+        Debug.Log(hSpeed);
     }
     void JumpGVer(int direction)
     {

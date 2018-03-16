@@ -16,8 +16,8 @@ TagManager:
   - 
   - 
   - Ground
-  - 
-  - 
+  - LPlayer
+  - SPlayer
   - 
   - 
   - 
@@ -49,6 +49,15 @@ TagManager:
   - name: Ground
     uniqueID: 2831869433
     locked: 0
+  - name: LPlayer
+    uniqueID: 3641182921
+    locked: 0
+  - name: SPlayer
+    uniqueID: 3445295997
+    locked: 0
   - name: Item
     uniqueID: 2217161825
+    locked: 0
+  - name: Dark
+    uniqueID: 2967657489
     locked: 0

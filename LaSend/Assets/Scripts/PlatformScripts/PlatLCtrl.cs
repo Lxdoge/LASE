@@ -94,7 +94,7 @@ public class PlatLCtrl : MonoBehaviour {
         if (collision.transform.tag == "SPlayer")
         {
             collision.gameObject.GetComponent<SPlayerCtrl>().platSpeed = rBody.velocity.x;
-            collision.rigidbody.velocity = new Vector2(collision.rigidbody.velocity.x, rBody.velocity.y);
+            //collision.rigidbody.velocity = new Vector2(collision.rigidbody.velocity.x, rBody.velocity.y);
         }
     }
     private void OnCollisionExit2D(Collision2D collision)

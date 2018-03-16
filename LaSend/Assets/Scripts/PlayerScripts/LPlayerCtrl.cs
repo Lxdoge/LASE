@@ -11,7 +11,6 @@ public class LPlayerCtrl : MonoBehaviour {
     Rigidbody2D rBody;                 //刚体
     [HideInInspector]
     public bool facingRight = false;   //角色朝向
-    public GameObject sPlayer;         //
     Animator animator;
     /// <summary>
     /// /////////////////////////水平移动变量//////////////////////////////////
@@ -157,6 +156,8 @@ public class LPlayerCtrl : MonoBehaviour {
             status = Status.light;
             //去除重力
             rBody.gravityScale = 0;
+
+            animator.SetBool("Skill", true);
         }
     }
 
@@ -198,6 +199,7 @@ public class LPlayerCtrl : MonoBehaviour {
         if (Input.GetButtonDown("Light"))
         {
             status = Status.normal;
+            animator.SetBool("Skill", false);
             rBody.gravityScale = 3;
         }
     }
@@ -217,6 +219,9 @@ public class LPlayerCtrl : MonoBehaviour {
         //否则，限制移动速度
         if (directionY * rBody.velocity.y > lightMoveSpeed)
             rBody.velocity = new Vector2(rBody.velocity.x, directionY * lightMoveSpeed);
+
+        if (animator.GetBool("SkillON"))
+            rBody.velocity = new Vector2(0, 0);
     }
 
     //Light状态
@@ -224,10 +229,15 @@ public class LPlayerCtrl : MonoBehaviour {
     {
         hor = Input.GetAxis("LHorizontal");
         ver = Input.GetAxis("LVertical");
+        if (hor > 0 && !facingRight)
+            Flip();
+        else if (hor < 0 && facingRight)
+            Flip();
         LightEnd();
     }
     void LightFixedCtrl()
     {
         LightMove(hor, ver);
     }
+
 }
