@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour {
     {
         if (levelnum <= level_max)
         {
-            SceneManager.LoadScene("level" + levelnum);//其实是要加载到某存档点的
+            SceneManager.LoadScene(levelnum);//其实是要加载到某存档点的
         }
     }
         

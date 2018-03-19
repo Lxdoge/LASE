@@ -51,6 +51,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\BlackAttackBehaviour.cs" />
+     <Compile Include="Assets\BlackJumpUpBehaviour.cs" />
      <Compile Include="Assets\Demigiant\DOTween\Examples\Basics.cs" />
      <Compile Include="Assets\Demigiant\DOTween\Examples\Sequences.cs" />
      <Compile Include="Assets\Game Jam Template\Scripts\FlexibleUI\FlexibleUI.cs" />
@@ -69,6 +71,7 @@
      <Compile Include="Assets\Game Jam Template\Scripts\Menu\SetAudioLevels.cs" />
      <Compile Include="Assets\Game Jam Template\Scripts\Menu\ShowPanels.cs" />
      <Compile Include="Assets\Game Jam Template\Scripts\Menu\StartOptions.cs" />
+     <Compile Include="Assets\Scripts\CameraScripts\CameraPoint.cs" />
      <Compile Include="Assets\Scripts\DataScripts\GameDataManager.cs" />
      <Compile Include="Assets\Scripts\DataScripts\PlayerData.cs" />
      <Compile Include="Assets\Scripts\DataScripts\testscript.cs" />
@@ -81,10 +84,12 @@
      <Compile Include="Assets\Scripts\PlayerScripts\SPlayerCtrl.cs" />
      <Compile Include="Assets\Scripts\PlayerScripts\test.cs" />
      <Compile Include="Assets\Scripts\UIScripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\UIScripts\GameStart.cs" />
      <Compile Include="Assets\Scripts\UIScripts\Item.cs" />
      <Compile Include="Assets\Scripts\UIScripts\PageItem.cs" />
      <Compile Include="Assets\Scripts\UIScripts\ScrollPage.cs" />
      <Compile Include="Assets\Scripts\UIScripts\ScrollPageMark.cs" />
+     <Compile Include="Assets\Scripts\UIScripts\SelectLevelUI.cs" />
      <Compile Include="Assets\Scripts\UIScripts\Test.cs" />
      <Compile Include="Assets\Tilemap\Brushes\Tint Brush Smooth\Scripts\TintTextureGenerator.cs" />
      <Compile Include="Assets\Tilemap\GridInformation\Scripts\GridInformation.cs" />
@@ -93,6 +98,7 @@
      <Compile Include="Assets\Tilemap\Tiles\Random Tile\Scripts\RandomTile.cs" />
      <Compile Include="Assets\Tilemap\Tiles\Rule Tile\Scripts\RuleTile.cs" />
      <Compile Include="Assets\Tilemap\Tiles\Terrain Tile\Scripts\TerrainTile.cs" />
+     <Compile Include="Assets\WhiteSkillBehaviour.cs" />
      <None Include="Assets\Demigiant\DOTween\readme.txt" />
      <None Include="Assets\Tilemap\Brushes\Tint Brush Smooth\Shaders\TintedTilemap.shader" />
      <None Include="Assets\Demigiant\DOTween\DOTween50.xml" />
@@ -167,6 +173,21 @@
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>E:/Unity7X/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
+ <Reference Include="DOTween">
+ <HintPath>F:/FinalDesign/L/trunk/LaSend/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>F:/FinalDesign/L/trunk/LaSend/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>F:/FinalDesign/L/trunk/LaSend/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>F:/FinalDesign/L/trunk/LaSend/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTweenEditor">
+ <HintPath>F:/FinalDesign/L/trunk/LaSend/Assets/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.Advertisements">
  <HintPath>C:/Users/dell/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll</HintPath>
  </Reference>
@@ -187,21 +208,6 @@
  </Reference>
  <Reference Include="UnityEngine.StandardEvents">
  <HintPath>C:/Users/dell/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
- </Reference>
- <Reference Include="DOTweenEditor">
- <HintPath>F:/FinalDesign/L/trunk/LaSend/Assets/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
- </Reference>
- <Reference Include="DOTween43">
- <HintPath>F:/FinalDesign/L/trunk/LaSend/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
- </Reference>
- <Reference Include="DOTween46">
- <HintPath>F:/FinalDesign/L/trunk/LaSend/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
- </Reference>
- <Reference Include="DOTween">
- <HintPath>F:/FinalDesign/L/trunk/LaSend/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
- </Reference>
- <Reference Include="DOTween50">
- <HintPath>F:/FinalDesign/L/trunk/LaSend/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
