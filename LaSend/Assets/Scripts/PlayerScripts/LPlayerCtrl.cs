@@ -12,6 +12,7 @@ public class LPlayerCtrl : MonoBehaviour {
     [HideInInspector]
     public bool facingRight = false;   //角色朝向
     Animator animator;
+    public GameObject lSkill;
     /// <summary>
     /// /////////////////////////水平移动变量//////////////////////////////////
     /// </summary>
@@ -156,7 +157,8 @@ public class LPlayerCtrl : MonoBehaviour {
             status = Status.light;
             //去除重力
             rBody.gravityScale = 0;
-
+            lSkill.GetComponent<SpriteRenderer>().enabled = true;
+            lSkill.GetComponent<LSkillCtrl>().skillon = true;
             animator.SetBool("Skill", true);
         }
     }
@@ -199,8 +201,12 @@ public class LPlayerCtrl : MonoBehaviour {
     {
         if (Input.GetButtonDown("Light"))
         {
+            if (animator.GetBool("SkillON"))
+                return;
             status = Status.normal;
             animator.SetBool("Skill", false);
+            lSkill.GetComponent<LSkillCtrl>().skillon = false;
+            lSkill.GetComponent<SpriteRenderer>().enabled = false;
             rBody.gravityScale = 3;
         }
     }
