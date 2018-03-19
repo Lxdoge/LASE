@@ -90,10 +90,14 @@ public class PlatLCtrl : MonoBehaviour {
 
     private void OnCollisionStay2D(Collision2D collision)
     {
+        SPlayerCtrl sc = collision.gameObject.GetComponent<SPlayerCtrl>();
         //修正平台上的玩家角色的移动速度(因为平台移动方向会变，不能在enter时更新）
         if (collision.transform.tag == "SPlayer")
         {
-            collision.gameObject.GetComponent<SPlayerCtrl>().platSpeed = rBody.velocity.x;
+            if(sc.status == SPlayerCtrl.Status.down || sc.status == SPlayerCtrl.Status.up)
+                sc.platSpeed = rBody.velocity.x;
+            if (sc.status == SPlayerCtrl.Status.left || sc.status == SPlayerCtrl.Status.right)
+                sc.platSpeed = rBody.velocity.y;
             //collision.rigidbody.velocity = new Vector2(collision.rigidbody.velocity.x, rBody.velocity.y);
         }
     }

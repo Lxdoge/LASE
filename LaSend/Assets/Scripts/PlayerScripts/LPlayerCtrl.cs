@@ -178,6 +178,7 @@ public class LPlayerCtrl : MonoBehaviour {
         animator.SetFloat("SpeedY", rBody.velocity.y);
         JumpCheck();
         LightCheck();
+        animator.SetFloat("Hor", Mathf.Abs(hor));
     }
     void NormalFixedCtrl()
     {

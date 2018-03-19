@@ -90,6 +90,8 @@ public class SPlayerCtrl : MonoBehaviour {
         }
         JumpCheck();
         GChangeCheck();
+
+        animator.SetFloat("Hor", Mathf.Abs(hor));
     }
 
     //
