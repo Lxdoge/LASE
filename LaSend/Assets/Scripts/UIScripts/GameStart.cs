@@ -7,7 +7,7 @@ public class GameStart : MonoBehaviour {
     public GameObject select_level;
 	// Use this for initialization
 	void Start () {
-		
+        Debug.Log(Screen.width);
 	}
 	
 	// Update is called once per frame
@@ -16,6 +16,10 @@ public class GameStart : MonoBehaviour {
 	}
     public void Seclect_Level()
     {
-        select_level.GetComponent<RectTransform>().DOLocalMoveX(400, 1.0f, false);
+        select_level.GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f, false);
+    }
+    public void Back()
+    {
+        select_level.GetComponent<RectTransform>().DOLocalMoveX(960, 0.5f, false);
     }
 }

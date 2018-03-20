@@ -135,4 +135,8 @@ public class ScrollPage : MonoBehaviour, IBeginDragHandler, IEndDragHandler
             OnEndDrag(null);
         }
     }
+    void move()
+    {
+
+    }
 }

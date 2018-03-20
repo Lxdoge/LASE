@@ -80,6 +80,7 @@
      <Compile Include="Assets\Scripts\PlatformScripts\PlatSwitch.cs" />
      <Compile Include="Assets\Scripts\PlayerScripts\Lmark.cs" />
      <Compile Include="Assets\Scripts\PlayerScripts\LPlayerCtrl.cs" />
+     <Compile Include="Assets\Scripts\PlayerScripts\LSkillCtrl.cs" />
      <Compile Include="Assets\Scripts\PlayerScripts\PlayerCtrl.cs" />
      <Compile Include="Assets\Scripts\PlayerScripts\SPlayerCtrl.cs" />
      <Compile Include="Assets\Scripts\PlayerScripts\test.cs" />
