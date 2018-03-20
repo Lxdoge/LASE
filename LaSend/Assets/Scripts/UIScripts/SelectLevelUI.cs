@@ -60,8 +60,9 @@ public class SelectLevelUI : MonoBehaviour//, IPointerEnterHandler
         for (int i = 0; i < Togs.Length; i++)
         {
             Buts[i].GetComponent<LayoutElement>().DOPreferredSize(new Vector2(300f, 300f), 0.5f, false);
-            Buts[i].GetComponent<Image>().color = Color.black;
+            Buts[i].GetComponent<Image>().color = Color.grey;
         }
     }
+
 
 }

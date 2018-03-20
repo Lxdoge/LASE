@@ -87,6 +87,7 @@
      <Compile Include="Assets\Scripts\UIScripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\UIScripts\GameStart.cs" />
      <Compile Include="Assets\Scripts\UIScripts\Item.cs" />
+     <Compile Include="Assets\Scripts\UIScripts\MoveAnima.cs" />
      <Compile Include="Assets\Scripts\UIScripts\PageItem.cs" />
      <Compile Include="Assets\Scripts\UIScripts\ScrollPage.cs" />
      <Compile Include="Assets\Scripts\UIScripts\ScrollPageMark.cs" />
