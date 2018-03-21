@@ -46,14 +46,15 @@ public class GameManager : MonoBehaviour {
 
     public void LoadGame()
     {
+
         Load();
         lPlayer.transform.position = pd.lPlayer_Pos;
     }
 
-    public void StartGame()
-    {
-        SceneManager.LoadScene(1);
-    }
+    //public void StartGame()
+    //{
+    //    SceneManager.LoadScene(1);
+    //}
 
     public void ExitGame()
     {
@@ -74,6 +75,8 @@ public class GameManager : MonoBehaviour {
 
     public void Load()
     {
+        //读取xml知道数据保存在哪一个场景中，Globe.nextScene=目标场景层级
+        SceneManager.LoadScene("Loading");
         string dataFilePath = GetDataPath() + "/" + dataFileName;
         if (xm.HasFile(dataFilePath))
         {
@@ -93,13 +96,15 @@ public class GameManager : MonoBehaviour {
     {
         Debug.Log("pd_pos" + pd.lPlayer_Pos);
     }
-    public int level_max = 100;//暂时设置一个变量为当前已解锁的关卡数
-    public void select_level(int levelnum)
+
+    public void load_NewLevel(int levelnum)
     {
-        if (levelnum <= level_max)
+        Globe.nextScene = levelnum;
+        if (levelnum <= maxlevel)//maxlevel为当前解锁的最大关卡、也可以是最大关卡，想玩哪关玩哪关
         {
-            SceneManager.LoadScene(levelnum);//其实是要加载到某存档点的
+            this.GetComponent<LoadScene>().enabled = true;
+            //添加函数GetInitData()加载目标关卡及目标关卡的全部初始数据，以重新开始该关卡
         }
     }
-        
+
 }
