@@ -53,6 +53,9 @@ TagManager:
   - name: "\u53F6\u5B50"
     uniqueID: 2776545441
     locked: 0
+  - name: "\u8138\u8C31"
+    uniqueID: 574655409
+    locked: 0
   - name: test
     uniqueID: 2110191457
     locked: 0
