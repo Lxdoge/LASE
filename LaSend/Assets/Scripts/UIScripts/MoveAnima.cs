@@ -27,6 +27,10 @@ public class MoveAnima : MonoBehaviour, IPointerClickHandler
     }
     // Update is called once per frame
     void Update () {
+        if (rotate == true)
+        {
+            this.GetComponent<RectTransform>().Rotate(0, 0, rotspeed * Time.deltaTime);
+        }
         if (MoveAnima.can_moveandrot)
         {
             Invoke("mrf", waitTime);
@@ -41,10 +45,7 @@ public class MoveAnima : MonoBehaviour, IPointerClickHandler
             this.GetComponent<RectTransform>().DOLocalMoveY(destination.y, moveTime, true);
             //this.transform.Translate(movespeedH * Time.deltaTime, movespeedV * Time.deltaTime, 0);//左上
         }
-        if (rotate == true)
-        {
-            this.GetComponent<RectTransform>().Rotate(0, 0, rotspeed * Time.deltaTime);
-        }
+
         if (fade == true)
         {
             this.GetComponent<RawImage>().DOColor(Color.clear, fadeTime);
