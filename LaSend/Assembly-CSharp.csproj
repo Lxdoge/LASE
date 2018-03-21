@@ -90,6 +90,7 @@
      <Compile Include="Assets\Scripts\UIScripts\LoadScene.cs" />
      <Compile Include="Assets\Scripts\UIScripts\MoveAnima.cs" />
      <Compile Include="Assets\Scripts\UIScripts\PageItem.cs" />
+     <Compile Include="Assets\Scripts\UIScripts\PanelBack.cs" />
      <Compile Include="Assets\Scripts\UIScripts\ScrollPage.cs" />
      <Compile Include="Assets\Scripts\UIScripts\ScrollPageMark.cs" />
      <Compile Include="Assets\Scripts\UIScripts\SelectLevelUI.cs" />

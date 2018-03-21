@@ -16,15 +16,14 @@ public class SelectLevelUI : MonoBehaviour//, IPointerEnterHandler
     int currentIndex;
 
     //public List<Toggle> toggleList = new List<Toggle>();
-    float offsetX;
-    float centerX;
+    //float offsetX;
+    //float centerX;
     void Awake()
     {
         
     }
     void Start()
     {
-        Debug.Log(centerX);
         allInit();
         Tgroup.allowSwitchOff = true;
         currentIndex = 0;

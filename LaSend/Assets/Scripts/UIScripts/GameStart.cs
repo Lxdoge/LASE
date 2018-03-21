@@ -8,7 +8,6 @@ public class GameStart : MonoBehaviour {
     public RawImage Logo;
 	// Use this for initialization
 	void Start () {
-        Debug.Log(Screen.width);
         Logo.color = Color.clear;
 	}
 	
@@ -32,7 +31,7 @@ public class GameStart : MonoBehaviour {
     {
         if(Logo)
         {
-            Logo.DOColor(Color.white,2.0f);
+            Logo.DOColor(Color.white,3.0f);
         }
     }
 }

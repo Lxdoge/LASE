@@ -4,17 +4,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
     string dataFileName = "LaSData.Xml";
     XmlManager xm = new XmlManager();
     public PlayerData pd;
 
     public GameObject lPlayer, sPlayer;
     public Vector3 lPlayer_Pos, sPlayer_Pos;
-    
+
 
     [HideInInspector]
-    public bool pause;
+    public static bool pause;
     [HideInInspector]
     public bool gameclear;
     [HideInInspector]
@@ -31,18 +32,20 @@ public class GameManager : MonoBehaviour {
     {
     }
     // Use this for initialization
-    void Start () {
-        pause = false;
+    void Start()
+    {
+        GameManager.pause = false;
         gameclear = false;
         gameover = false;
         Load();
         thiscanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         //Debug.Log(CanvasWidth);
-        if (SceneManager.GetActiveScene().buildIndex != 0&&SceneManager.GetActiveScene().name!="Loading")
+        if (SceneManager.GetActiveScene().buildIndex != 0 && SceneManager.GetActiveScene().name != "Loading")
         {
             panelpause = GameObject.Find("Panel_Pause");
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -54,8 +57,8 @@ public class GameManager : MonoBehaviour {
         {
             panelpause = null;
         }
-        
-	}
+
+    }
 
     void InitPlayers()
     {
@@ -92,7 +95,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Load()
-    {     
+    {
         string dataFilePath = GetDataPath() + "/" + dataFileName;
         if (xm.HasFile(dataFilePath))
         {
@@ -128,20 +131,21 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     void PauseGame()
     {
+        GameManager.pause = true;//暂停的算法日后要改
         Time.timeScale = 0;
         panelpause = GameObject.Find("Panel_Pause");
         panelpause.GetComponent<RectTransform>().DOMoveX(0, 0.5f);
     }
-    public void BackToGame()
-    {
-        if (panelpause)
-        {
-            Time.timeScale = 1;
-            panelpause.GetComponent<RectTransform>().DOMoveX(960, 0.5f);
-        }
-        else return;
+    //public void BackToGame()
+    //{
+    //    if (panelpause)
+    //    {
+    //        Time.timeScale = 1;
+    //        panelpause.GetComponent<RectTransform>().DOMoveX(960, 0.5f);
+    //    }
+    //    else return;
 
-    }
+    //}
     public void BackToMenu()
     {
         if (panelpause)
@@ -155,16 +159,19 @@ public class GameManager : MonoBehaviour {
     }
     public void Setting()
     {
-        if (panelpause)
+
+        if (GameObject.Find("Panel_Setting"))
         {
-            if(GameObject.Find("Panel_Setting"))
+            if(GameObject.Find("Panel_Pause"))
             {
                 Time.timeScale = 0;
-                GameObject.Find("Panel_Setting").GetComponent<RectTransform>().DOMoveX(0, 0.5f, false);//setting层是不透明的，要有返回效果，层级要高于pause
-            }
+            }          
+            GameObject.Find("Panel_Setting").GetComponent<RectTransform>().DOMoveX(0, 0.5f, false);//setting层是不透明的，要有返回效果，层级要高于pause
         }
+
         else return;
     }
+
     public void Restart()
     {
         if (panelpause)
@@ -175,5 +182,9 @@ public class GameManager : MonoBehaviour {
             //场景重启的代码需要LXD写
         }
         else return;
+    }
+    public void showPanel(string PanelName)
+    {
+        GameObject.Find(PanelName).GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f, false);
     }
 }
