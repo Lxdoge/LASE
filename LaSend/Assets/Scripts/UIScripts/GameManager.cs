@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
+using DG.Tweening;
 public class GameManager : MonoBehaviour {
     string dataFileName = "LaSData.Xml";
     XmlManager xm = new XmlManager();
@@ -23,6 +24,9 @@ public class GameManager : MonoBehaviour {
     public int scenenum;
     private int maxlevel;
 
+    GameObject panelpause;
+    Canvas thiscanvas;
+    float CanvasWidth;
     private void Awake()
     {
     }
@@ -32,11 +36,25 @@ public class GameManager : MonoBehaviour {
         gameclear = false;
         gameover = false;
         Load();
+        thiscanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
+        //Debug.Log(CanvasWidth);
+        if (SceneManager.GetActiveScene().buildIndex != 0&&SceneManager.GetActiveScene().name!="Loading")
+        {
+            panelpause = GameObject.Find("Panel_Pause");
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                PauseGame();
+            }
+        }
+        else
+        {
+            panelpause = null;
+        }
+        
 	}
 
     void InitPlayers()
@@ -46,7 +64,7 @@ public class GameManager : MonoBehaviour {
 
     public void LoadGame()
     {
-
+        SceneManager.LoadScene("Loading");//读取xml知道数据保存在哪一个场景中，Globe.nextScene=目标场景层级
         Load();
         lPlayer.transform.position = pd.lPlayer_Pos;
     }
@@ -74,9 +92,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Load()
-    {
-        //读取xml知道数据保存在哪一个场景中，Globe.nextScene=目标场景层级
-        SceneManager.LoadScene("Loading");
+    {     
         string dataFilePath = GetDataPath() + "/" + dataFileName;
         if (xm.HasFile(dataFilePath))
         {
@@ -107,4 +123,57 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// ///////////////////////////////////////////////////////////
+    /// </summary>
+    void PauseGame()
+    {
+        Time.timeScale = 0;
+        panelpause = GameObject.Find("Panel_Pause");
+        panelpause.GetComponent<RectTransform>().DOMoveX(0, 0.5f);
+    }
+    public void BackToGame()
+    {
+        if (panelpause)
+        {
+            Time.timeScale = 1;
+            panelpause.GetComponent<RectTransform>().DOMoveX(960, 0.5f);
+        }
+        else return;
+
+    }
+    public void BackToMenu()
+    {
+        if (panelpause)
+        {
+            Time.timeScale = 1;
+            Globe.nextScene = 0;
+            SceneManager.LoadScene(Globe.nextScene);
+            //以后获取canvas画布宽度更新
+        }
+        else return;
+    }
+    public void Setting()
+    {
+        if (panelpause)
+        {
+            if(GameObject.Find("Panel_Setting"))
+            {
+                Time.timeScale = 0;
+                GameObject.Find("Panel_Setting").GetComponent<RectTransform>().DOMoveX(0, 0.5f, false);//setting层是不透明的，要有返回效果，层级要高于pause
+            }
+        }
+        else return;
+    }
+    public void Restart()
+    {
+        if (panelpause)
+        {
+            Time.timeScale = 1;
+            Globe.nextScene = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(Globe.nextScene);
+            //场景重启的代码需要LXD写
+        }
+        else return;
+    }
 }

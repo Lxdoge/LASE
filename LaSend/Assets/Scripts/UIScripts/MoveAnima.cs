@@ -29,7 +29,8 @@ public class MoveAnima : MonoBehaviour, IPointerClickHandler
     void Update () {
         if (rotate == true)
         {
-            this.GetComponent<RectTransform>().Rotate(0, 0, rotspeed * Time.deltaTime);
+            //this.GetComponent<RectTransform>().Rotate(0, 0, rotspeed * Time.deltaTime);
+            this.transform.Rotate(0, 0, rotspeed * Time.deltaTime);
         }
         if (MoveAnima.can_moveandrot)
         {
