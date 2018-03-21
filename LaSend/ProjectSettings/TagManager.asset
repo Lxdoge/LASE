@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SPlayer
   - LPlayer
+  - "\u80CC\u666F"
   layers:
   - Default
   - TransparentFX
@@ -15,13 +16,13 @@ TagManager:
   - UI
   - 
   - 
+  - "\u80CC\u666F"
+  - 
+  - 
   - Ground
-  - LPlayer
+  - 
   - SPlayer
-  - 
-  - 
-  - 
-  - 
+  - LPlayer
   - 
   - 
   - 
@@ -43,17 +44,29 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: "\u5E95\u7EB9"
+    uniqueID: 1094773705
+    locked: 0
+  - name: "\u4E91"
+    uniqueID: 3350739477
+    locked: 0
+  - name: "\u53F6\u5B50"
+    uniqueID: 2776545441
+    locked: 0
   - name: test
     uniqueID: 2110191457
     locked: 0
-  - name: Ground
-    uniqueID: 2831869433
+  - name: "\u67F1\u5B50"
+    uniqueID: 2248919419
     locked: 0
   - name: LPlayer
     uniqueID: 3641182921
     locked: 0
   - name: SPlayer
     uniqueID: 3445295997
+    locked: 0
+  - name: "\u680F\u6746"
+    uniqueID: 3364988297
     locked: 0
   - name: Item
     uniqueID: 2217161825
