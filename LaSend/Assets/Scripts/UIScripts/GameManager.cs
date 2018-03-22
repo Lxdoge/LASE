@@ -14,8 +14,7 @@ public class GameManager : MonoBehaviour
     public Vector3 lPlayer_Pos, sPlayer_Pos;
 
 
-    [HideInInspector]
-    public static bool pause;
+    public bool pause;
     [HideInInspector]
     public bool gameclear;
     [HideInInspector]
@@ -34,7 +33,7 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        GameManager.pause = false;
+        pause = false;
         gameclear = false;
         gameover = false;
         Load();
@@ -48,14 +47,26 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex != 0 && SceneManager.GetActiveScene().name != "Loading")
         {
             panelpause = GameObject.Find("Panel_Pause");
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape)&&panelpause)
             {
-                PauseGame();
+                pause = !pause;
+                Debug.Log(pause);
             }
         }
         else
         {
             panelpause = null;
+        }
+        if(pause==true)
+        {
+            this.showPanel("Panel_Pause");
+            Time.timeScale = 0;
+            panelpause.GetComponent<RectTransform>().DOLocalMoveX(0, 0, false);
+        }
+        else if(pause==false)
+        {
+            Time.timeScale = 1;
+            panelpause.GetComponent<RectTransform>().DOLocalMoveX(960, 0.5f, false);
         }
 
     }
@@ -119,9 +130,10 @@ public class GameManager : MonoBehaviour
     public void load_NewLevel(int levelnum)
     {
         Globe.nextScene = levelnum;
-        if (levelnum <= maxlevel)//maxlevel为当前解锁的最大关卡、也可以是最大关卡，想玩哪关玩哪关
+        if (levelnum <= maxlevel&&SceneManager.GetActiveScene().buildIndex==0)//maxlevel为当前解锁的最大关卡、也可以是最大关卡，想玩哪关玩哪关
         {
-            this.GetComponent<LoadScene>().enabled = true;
+            SceneManager.LoadScene("Loading");
+            //this.GetComponent<LoadScene>().enabled = true;
             //添加函数GetInitData()加载目标关卡及目标关卡的全部初始数据，以重新开始该关卡
         }
     }
@@ -129,23 +141,21 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// ///////////////////////////////////////////////////////////
     /// </summary>
-    void PauseGame()
-    {
-        GameManager.pause = true;//暂停的算法日后要改
-        Time.timeScale = 0;
-        panelpause = GameObject.Find("Panel_Pause");
-        panelpause.GetComponent<RectTransform>().DOMoveX(0, 0.5f);
-    }
-    //public void BackToGame()
+    //void PauseGame()
     //{
-    //    if (panelpause)
-    //    {
-    //        Time.timeScale = 1;
-    //        panelpause.GetComponent<RectTransform>().DOMoveX(960, 0.5f);
-    //    }
-    //    else return;
+    //    pause = true;//暂停的算法日后要改
 
     //}
+    void BackToGame()
+    {
+        if (panelpause)
+        {
+            Time.timeScale = 1;
+            panelpause.GetComponent<RectTransform>().DOMoveX(960, 0.5f);
+        }
+        else return;
+
+    }
     public void BackToMenu()
     {
         if (panelpause)
@@ -185,6 +195,18 @@ public class GameManager : MonoBehaviour
     }
     public void showPanel(string PanelName)
     {
-        GameObject.Find(PanelName).GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f, false);
+        if (GameObject.Find(PanelName)&&!pause)
+        {
+            GameObject.Find(PanelName).GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f, true);
+
+        }
+        else if(GameObject.Find(PanelName) && pause)
+        {
+            GameObject.Find(PanelName).GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
+        }
+        else
+        {
+            Debug.Log("errorpannel!");
+        }
     }
 }
