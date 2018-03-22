@@ -50,15 +50,15 @@ public class SelectLevelUI : MonoBehaviour//, IPointerEnterHandler
     }
     void ScrollMove()
     {
-        Buts[currentIndex].GetComponent<LayoutElement>().DOPreferredSize(new Vector2(360f, 360f), 0.5f, false);
+        Buts[currentIndex].GetComponent<LayoutElement>().DOPreferredSize(new Vector2(360f, 360f), 0.5f, true);
         Buts[currentIndex].GetComponent<Image>().DOColor(Color.white, 0.01f);
-        butGrounp.GetComponent<RectTransform>().DOLocalMoveX(moveX[currentIndex],0.1f,false);
+        butGrounp.GetComponent<RectTransform>().DOLocalMoveX(moveX[currentIndex],0.1f,true);
             }
     void allInit()
     {
         for (int i = 0; i < Togs.Length; i++)
         {
-            Buts[i].GetComponent<LayoutElement>().DOPreferredSize(new Vector2(300f, 300f), 0.5f, false);
+            Buts[i].GetComponent<LayoutElement>().DOPreferredSize(new Vector2(300f, 300f), 0.5f, true);
             Buts[i].GetComponent<Image>().color = Color.grey;
         }
     }

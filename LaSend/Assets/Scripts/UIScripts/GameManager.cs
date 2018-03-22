@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 
 
     public bool pause;
+
     [HideInInspector]
     public bool gameclear;
     [HideInInspector]
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     public int level;
     public int scenenum;
-    private int maxlevel;
+    private int maxlevel = 100;
 
     GameObject panelpause;
     Canvas thiscanvas;
@@ -43,30 +44,37 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //Debug.Log(CanvasWidth);
         if (SceneManager.GetActiveScene().buildIndex != 0 && SceneManager.GetActiveScene().name != "Loading")
         {
             panelpause = GameObject.Find("Panel_Pause");
-            if (Input.GetKeyDown(KeyCode.Escape)&&panelpause)
+            if (Input.GetKeyDown(KeyCode.Escape) && panelpause)
             {
                 pause = !pause;
                 Debug.Log(pause);
             }
+
+            if (pause == true)
+            {
+                this.showPanel("Panel_Pause");
+                Tweener pauseout = panelpause.GetComponent<RectTransform>().DOLocalMoveX(0, 0.2f);
+                pauseout.SetUpdate(true);
+                //panelpause.GetComponent<RectTransform>().DOMoveX(0f,0.1f, true);
+                Time.timeScale = 0;
+            }
+            else if (pause == false)
+            {
+                Time.timeScale = 1;
+                Tweener pausein = panelpause.GetComponent<RectTransform>().DOLocalMoveX(960, 0.2f);
+                pausein.SetUpdate(true);
+            }
         }
         else
         {
-            panelpause = null;
-        }
-        if(pause==true)
-        {
-            this.showPanel("Panel_Pause");
-            Time.timeScale = 0;
-            panelpause.GetComponent<RectTransform>().DOLocalMoveX(0, 0, false);
-        }
-        else if(pause==false)
-        {
+            pause = false;
             Time.timeScale = 1;
-            panelpause.GetComponent<RectTransform>().DOLocalMoveX(960, 0.5f, false);
+            panelpause = null;
         }
 
     }
@@ -129,13 +137,18 @@ public class GameManager : MonoBehaviour
 
     public void load_NewLevel(int levelnum)
     {
+        pause = false;
         Globe.nextScene = levelnum;
-        if (levelnum <= maxlevel&&SceneManager.GetActiveScene().buildIndex==0)//maxlevel为当前解锁的最大关卡、也可以是最大关卡，想玩哪关玩哪关
+        if (levelnum <= maxlevel)//maxlevel为当前解锁的最大关卡、也可以是最大关卡，想玩哪关玩哪关
         {
             SceneManager.LoadScene("Loading");
             //this.GetComponent<LoadScene>().enabled = true;
             //添加函数GetInitData()加载目标关卡及目标关卡的全部初始数据，以重新开始该关卡
         }
+        //else if(levelnum==SceneManager.GetActiveScene().buildIndex)
+        //{
+        //    SceneManager.LoadScene("Loading");
+        //}
     }
 
     /// <summary>
@@ -146,67 +159,87 @@ public class GameManager : MonoBehaviour
     //    pause = true;//暂停的算法日后要改
 
     //}
-    void BackToGame()
+    public void BackToGame()
     {
         if (panelpause)
         {
-            Time.timeScale = 1;
-            panelpause.GetComponent<RectTransform>().DOMoveX(960, 0.5f);
-        }
-        else return;
-
-    }
-    public void BackToMenu()
-    {
-        if (panelpause)
-        {
-            Time.timeScale = 1;
-            Globe.nextScene = 0;
-            SceneManager.LoadScene(Globe.nextScene);
-            //以后获取canvas画布宽度更新
-        }
-        else return;
-    }
-    public void Setting()
-    {
-
-        if (GameObject.Find("Panel_Setting"))
-        {
-            if(GameObject.Find("Panel_Pause"))
+            Tweener panelback = panelpause.GetComponent<RectTransform>().DOLocalMoveX(960, 0.2f);
+            panelback.SetUpdate(true);
+            if (pause)
             {
-                Time.timeScale = 0;
-            }          
-            GameObject.Find("Panel_Setting").GetComponent<RectTransform>().DOMoveX(0, 0.5f, false);//setting层是不透明的，要有返回效果，层级要高于pause
+                pause = false;
+            }
+            ////panelpause.GetComponent<RectTransform>().DOMoveX(960, 0.1f,true);
+            //Tweener tweener = panelpause.GetComponent<RectTransform>().DOMoveX(960, 0.1f);
+            ////设置这个Tween不受Time.scale影响
+            //tweener.SetUpdate(true);
         }
-
         else return;
+
     }
+    //public void BackToMenu()
+    //{
+    //    if (panelpause)
+    //    {           
+    //        Globe.nextScene = 0;
+    //        pause = false;
+    //        SceneManager.LoadScene("Loading");
+    //        //以后获取canvas画布宽度更新
+    //    }
+    //    else return;
+    //}
+    //public void Setting()
+    //{
+
+    //    if (GameObject.Find("Panel_Setting"))
+    //    {
+    //        if(GameObject.Find("Panel_Pause"))
+    //        {
+    //            Time.timeScale = 0;
+    //        }          
+    //        GameObject.Find("Panel_Setting").GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f, true);//setting层是不透明的，要有返回效果，层级要高于pause
+    //    }
+
+    //    else return;
+    //}
 
     public void Restart()
     {
         if (panelpause)
         {
-            Time.timeScale = 1;
+
             Globe.nextScene = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(Globe.nextScene);
+            SceneManager.LoadScene("Loading");
+            
+            pause = false;
             //场景重启的代码需要LXD写
         }
         else return;
     }
     public void showPanel(string PanelName)
     {
-        if (GameObject.Find(PanelName)&&!pause)
+        if (GameObject.Find(PanelName))
         {
-            GameObject.Find(PanelName).GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f, true);
-
-        }
-        else if(GameObject.Find(PanelName) && pause)
-        {
-            GameObject.Find(PanelName).GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
+            //GameObject.Find(PanelName).GetComponent<RectTransform>().DOLocalMove(new Vector3(0,0,0), 0.1f, true);
+            Tweener panelout = GameObject.Find(PanelName).GetComponent<RectTransform>().DOLocalMoveX(0, 0.2f);
+            panelout.SetUpdate(true);
         }
         else
         {
             Debug.Log("errorpannel!");
         }
     }
+    /////////////////////////////////////
+
+    public void ChangeMU()
+    {
+        Slider mu = GameObject.Find("Slider_MU").GetComponent<Slider>();
+        if(mu)
+        {
+            Debug.Log("mu");
+            Camera.main.GetComponent<AudioSource>().volume = mu.value;
+        }
+       
+    }
+    //音效再看
 }

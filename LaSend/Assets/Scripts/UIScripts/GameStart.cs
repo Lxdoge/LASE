@@ -21,11 +21,11 @@ public class GameStart : MonoBehaviour {
     }
     public void Seclect_Level()
     {
-        select_level.GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f, false);
+        select_level.GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f, true);
     }
     public void Back()
     {
-        select_level.GetComponent<RectTransform>().DOLocalMoveX(960, 0.5f, false);
+        select_level.GetComponent<RectTransform>().DOLocalMoveX(960, 0.5f, true);
     }
     void ShowLogo()
     {

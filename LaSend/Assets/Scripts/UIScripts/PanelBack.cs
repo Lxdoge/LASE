@@ -15,7 +15,9 @@ public class PanelBack : MonoBehaviour,IPointerClickHandler {
 	void Update () {
 		if(doback)
         {
-            this.transform.parent.GetComponent<RectTransform>().DOLocalMoveX(960, backTime, false);
+            Tweener panelback = this.transform.parent.GetComponent<RectTransform>().DOLocalMoveX(960, backTime);
+            panelback.SetUpdate(true);
+            //this.transform.parent.GetComponent<RectTransform>().DOLocalMoveX(960, backTime, true);
             Invoke("init", backTime);
         }
 	}
