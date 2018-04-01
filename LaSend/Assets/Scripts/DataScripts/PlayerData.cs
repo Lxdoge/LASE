@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class PlayerData {
     public Vector3 lPlayer_Pos;
+    public Vector3 sPlayer_Pos;
+    public int Level_Num;
+
     public PlayerData()
     {
+        Level_Num = 1;
         lPlayer_Pos = new Vector3(0, 0, 0);
+        sPlayer_Pos = new Vector3(0, 0, 0);
     }
     // Use this for initialization
     void Start () {
@@ -19,5 +24,7 @@ public class PlayerData {
     public void PlayerPos(Vector3 pos)
     {
         lPlayer_Pos = pos;
+        sPlayer_Pos = pos;
     }
+    
 }

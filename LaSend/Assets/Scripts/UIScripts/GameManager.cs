@@ -37,8 +37,10 @@ public class GameManager : MonoBehaviour
         pause = false;
         gameclear = false;
         gameover = false;
+        //pd = new PlayerData();
         Load();
         thiscanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        //Save();
     }
 
     // Update is called once per frame
@@ -86,9 +88,13 @@ public class GameManager : MonoBehaviour
 
     public void LoadGame()
     {
-        SceneManager.LoadScene("Loading");//读取xml知道数据保存在哪一个场景中，Globe.nextScene=目标场景层级
         Load();
+        Globe.nextScene = pd.Level_Num;
+        SceneManager.LoadScene("Loading");//读取xml知道数据保存在哪一个场景中，Globe.nextScene=目标场景层级
+
+        
         lPlayer.transform.position = pd.lPlayer_Pos;
+        sPlayer.transform.position = pd.sPlayer_Pos;
     }
 
     //public void StartGame()
