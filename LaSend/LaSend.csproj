@@ -328,6 +328,7 @@
     <Compile Include="Assets\Scripts\DataScripts\PlayerData.cs" />
     <Compile Include="Assets\Scripts\DataScripts\testscript.cs" />
     <Compile Include="Assets\Scripts\DataScripts\XmlManager.cs" />
+    <Compile Include="Assets\Scripts\PlatformScripts\Organo.cs" />
     <Compile Include="Assets\Scripts\PlatformScripts\PlatLCtrl.cs" />
     <Compile Include="Assets\Scripts\PlatformScripts\PlatNCtrl.cs" />
     <Compile Include="Assets\Scripts\PlatformScripts\PlatSwitch.cs" />
