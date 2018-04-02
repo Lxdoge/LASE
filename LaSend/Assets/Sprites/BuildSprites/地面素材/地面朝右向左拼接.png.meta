@@ -3,7 +3,8 @@ guid: e83785df9e9528844991512a8ac4de1d
 timeCreated: 1521465568
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: "\u5730\u9762\u671D\u53F3\u5411\u5DE6\u62FC\u63A5_0"
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -78,10 +79,24 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: "\u5730\u9762\u671D\u53F3\u5411\u5DE6\u62FC\u63A5_0"
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 47
+        width: 857
+        height: 526
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
     outline: []
     physicsShape: []
-  spritePackingTag: 
+  spritePackingTag: ground
   userData: 
   assetBundleName: 
   assetBundleVariant: 
