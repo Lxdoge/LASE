@@ -26,8 +26,8 @@ TagManager:
   - "\u88C5\u9970\u54C1"
   - 
   - 
-  - 
-  - 
+  - Light
+  - InfrontofLight
   - 
   - 
   - 
@@ -56,8 +56,14 @@ TagManager:
   - name: "\u8138\u8C31"
     uniqueID: 574655409
     locked: 0
-  - name: test
+  - name: Test
     uniqueID: 2110191457
+    locked: 0
+  - name: "\u88C5\u9970\u54C1\u540E"
+    uniqueID: 2944319277
+    locked: 0
+  - name: Item
+    uniqueID: 2067298997
     locked: 0
   - name: "\u67F1\u5B50"
     uniqueID: 2248919419
@@ -68,10 +74,13 @@ TagManager:
   - name: SPlayer
     uniqueID: 3445295997
     locked: 0
+  - name: "\u88C5\u9970\u54C1\u4E2D"
+    uniqueID: 923518801
+    locked: 0
   - name: "\u680F\u6746"
     uniqueID: 3364988297
     locked: 0
-  - name: Item
+  - name: "\u88C5\u9970\u54C1\u524D"
     uniqueID: 2217161825
     locked: 0
   - name: Dark
