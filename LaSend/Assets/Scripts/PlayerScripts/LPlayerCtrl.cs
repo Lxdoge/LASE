@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LPlayerCtrl : MonoBehaviour {
+    Rigidbody2D rBody;                 //刚体
+    Animator animator;                 //动画
+    public GameObject lSkill;
+    /// <summary>
+    /// /////////////////////////角色状态变量//////////////////////////////////
+    /// </summary>
     [HideInInspector]
-    public enum Status { normal, light};//角色状态
+    public enum Status { normal, light };//角色状态
     [HideInInspector]
     public Status status;              //角色当前状态
-
-    Rigidbody2D rBody;                 //刚体
     [HideInInspector]
-    public bool facingRight = false;   //角色朝向
-    Animator animator;
-    public GameObject lSkill;
+    public bool facingRight;   //角色朝向
+    [HideInInspector]
+    public bool death;         //死亡
     /// <summary>
     /// /////////////////////////水平移动变量//////////////////////////////////
     /// </summary>
@@ -49,6 +53,8 @@ public class LPlayerCtrl : MonoBehaviour {
     // 初始化
     void Start()
     {
+        facingRight = false;
+        death = false;
         status = Status.normal;
         rBody = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();

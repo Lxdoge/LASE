@@ -6,20 +6,19 @@ using UnityEngine.UI;
 using DG.Tweening;
 public class GameManager : MonoBehaviour
 {
-    string dataFileName = "LaSData.Xml";
-    XmlManager xm = new XmlManager();
-    public PlayerData pd;
+    string dataFileName = "LaSData.Xml"; //存档文件名
+    XmlManager xm = new XmlManager();    //存档管理类
+    public PlayerData pd;                //玩家数据
 
-    public GameObject lPlayer, sPlayer;
+    public GameObject lPlayer, sPlayer;  //玩家角色
     public Vector3 lPlayer_Pos, sPlayer_Pos;
 
-
-    public bool pause;
-
     [HideInInspector]
-    public bool gameclear;
+    public bool pause;                   //暂停
     [HideInInspector]
-    public bool gameover;
+    public bool gameclear;               //通关
+    [HideInInspector]
+    public bool gameover;                //失败
 
     public int level;
     public int scenenum;
@@ -28,17 +27,14 @@ public class GameManager : MonoBehaviour
     GameObject panelpause;
     Canvas thiscanvas;
     float CanvasWidth;
-    private void Awake()
-    {
-    }
-    // Use this for initialization
+
     void Start()
     {
         pause = false;
         gameclear = false;
         gameover = false;
         //pd = new PlayerData();
-        Load();
+        Load();                          //读取存档
         thiscanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         //Save();
     }
@@ -46,7 +42,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         //Debug.Log(CanvasWidth);
         if (SceneManager.GetActiveScene().buildIndex != 0 && SceneManager.GetActiveScene().name != "Loading")
         {
@@ -80,33 +75,23 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
-    void InitPlayers()
-    {
-        lPlayer.transform.position = lPlayer_Pos;
-    }
-
-    public void LoadGame()
-    {
-        Load();
-        Globe.nextScene = pd.Level_Num;
-        SceneManager.LoadScene("Loading");//读取xml知道数据保存在哪一个场景中，Globe.nextScene=目标场景层级
-
-        
-        lPlayer.transform.position = pd.lPlayer_Pos;
-        sPlayer.transform.position = pd.sPlayer_Pos;
-    }
-
     //public void StartGame()
     //{
     //    SceneManager.LoadScene(1);
     //}
-
+    //退出游戏
     public void ExitGame()
     {
         Application.Quit();
     }
-
+    //失败-重新开始
+    public void ReFromSavePoint()
+    {
+        if (gameover)
+        {
+            LoadData();
+        }
+    }
     public void Save()
     {
         string dataFilePath = GetDataPath() + "/" + dataFileName;
@@ -118,11 +103,11 @@ public class GameManager : MonoBehaviour
     {
         return Application.dataPath;
     }
-
+    //从存档中读取玩家数据到PD
     public void Load()
     {
-        string dataFilePath = GetDataPath() + "/" + dataFileName;
-        if (xm.HasFile(dataFilePath))
+        string dataFilePath = GetDataPath() + "/" + dataFileName;//文件地址
+        if (xm.HasFile(dataFilePath))//如果文件存在
         {
             string dataString = xm.LoadXML(dataFilePath);
             PlayerData pdFromXML = xm.DeserializeObject(dataString, typeof(PlayerData)) as PlayerData;
@@ -133,6 +118,22 @@ public class GameManager : MonoBehaviour
             else
                 Debug.Log("xml is null!");
         }
+    }
+    //根据PD更改场景内物体信息
+    public void LoadData()
+    {
+        //角色位置
+        lPlayer.transform.position = pd.lPlayer_Pos;
+        sPlayer.transform.position = pd.sPlayer_Pos;
+        //收集品信息
+    }
+    //根据存档载入游戏
+    public void LoadGame()
+    {
+        Load();                           
+        Globe.nextScene = pd.Level_Num;
+        SceneManager.LoadScene("Loading");//读取xml知道数据保存在哪一个场景中，Globe.nextScene=目标场景层级
+        LoadData();
     }
 
 
