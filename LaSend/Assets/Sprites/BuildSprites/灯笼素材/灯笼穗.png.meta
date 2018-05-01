@@ -3,7 +3,8 @@ guid: 653a3a34e63baea44a5ff4784de26f48
 timeCreated: 1521637218
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: "\u706F\u7B3C\u7A57_0"
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -78,7 +79,21 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: "\u706F\u7B3C\u7A57_0"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2
+        width: 90
+        height: 296
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
     outline: []
     physicsShape: []
   spritePackingTag: DengLong
