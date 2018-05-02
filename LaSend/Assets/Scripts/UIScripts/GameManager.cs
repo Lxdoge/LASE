@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
             panelpause = null;
         }
-
+        DontDestroyOnLoad(this);
     }
     //public void StartGame()
     //{

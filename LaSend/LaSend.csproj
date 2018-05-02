@@ -396,7 +396,9 @@
     <Compile Include="Assets\Scripts\DataScripts\PlayerData.cs" />
     <Compile Include="Assets\Scripts\DataScripts\testscript.cs" />
     <Compile Include="Assets\Scripts\DataScripts\XmlManager.cs" />
+    <Compile Include="Assets\Scripts\EffectScripts\EyeCtrl.cs" />
     <Compile Include="Assets\Scripts\EffectScripts\LightFlicker.cs" />
+    <Compile Include="Assets\Scripts\PlatformScripts\ChainPlat.cs" />
     <Compile Include="Assets\Scripts\PlatformScripts\Organo.cs" />
     <Compile Include="Assets\Scripts\PlatformScripts\PlatLCtrl.cs" />
     <Compile Include="Assets\Scripts\PlatformScripts\PlatNCtrl.cs" />
