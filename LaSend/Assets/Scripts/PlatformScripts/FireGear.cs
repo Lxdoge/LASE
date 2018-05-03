@@ -3,38 +3,97 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEditor;
-public class FireGear : MonoBehaviour {
-    
-    public float lifetime;
-    public float bullet_speed;
-    public bool is_open = false;
+public class FireGear : MonoBehaviour
+{
+    bool is_firstopen = false;
+    [HideInInspector]
+    public bool lopen = false;
+    [HideInInspector]
+    public bool sopen = false;
     public GameObject Bullet_L;
     public GameObject Bullet_S;
-	// Use this for initialization
-	void Start () {
-       
-    }
-	
-	// Update is called once per frame
-	void Update () {
-
-        this.GetComponent<Collider2D>().enabled = this.is_open ;
-
-	}
-    void OnCollisionEnter2D(Collider2D obj)
+    //public float Cycle_Time;//越短发射越多
+    private GameObject targetplayer;
+    private float Timerl;
+    private float Timers;
+    public float FireCd = 1f;
+    // Use this for initialization
+    void Start()
     {
-        if(this.GetComponent<PosCtrl>().is_open)
+        Timerl = 0;
+        Timers = 0;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        this.GetComponent<Collider2D>().enabled = this.GetComponent<PosCtrl>().is_open;
+        if (lopen && is_firstopen)
         {
-            string ta = obj.gameObject.tag;
-            if(tag=="LPlayer"&&tag=="SPlayer")
+            Timerl -= Time.deltaTime;
+            if (Timerl <= 0)
             {
-                fire(tag);
+                fireL();
+                Timerl = FireCd;
             }
         }
+        if(sopen && is_firstopen)
+        {
+            Timers -= Time.deltaTime;
+            if (Timers <= 0)
+            {
+                fireS();
+                Timers = FireCd;
+            }
+        }
+
     }
-    void fire(string player)
+    void OnTriggerEnter2D(Collider2D obj)
     {
-        GameObject bul= Instantiate(Bullet_L, this.transform.position, this.transform.rotation);
-        GameObject bus = Instantiate(Bullet_S, this.transform.position, this.transform.rotation);
+        string ta = obj.gameObject.tag;
+        if (ta == "LPlayer" || ta == "SPlayer")
+        {
+            is_firstopen = true;
+        }
+    }
+    void OnTriggerStay2D(Collider2D obj)
+    {
+        string thetag = obj.gameObject.tag;
+        if (thetag == "LPlayer")
+        {
+            Debug.Log("LL");
+            targetplayer = Bullet_L;
+            this.lopen = true;
+        }
+        if (thetag == "SPlayer")
+        {
+            Debug.Log("SS");
+            targetplayer = Bullet_S;
+            this.sopen = true;
+        }
+    }
+    void OnTriggerExit2D(Collider2D obj)
+    {
+        string thetag = obj.gameObject.tag;
+        if (thetag == "LPlayer")
+        {
+            Debug.Log("LF");
+            this.lopen = false;
+        }
+        if (thetag == "SPlayer")
+        {
+            Debug.Log("SF");
+            this.sopen = false;
+        }
+    }
+    void fireL()
+    {
+        GameObject bl = Instantiate(Bullet_L, this.transform.position, this.transform.rotation);
+        Debug.Log("bulletl");
+    }
+    void fireS()
+    {
+        GameObject bs = Instantiate(Bullet_S, this.transform.position, this.transform.rotation);
+        Debug.Log("bullets");
     }
 }

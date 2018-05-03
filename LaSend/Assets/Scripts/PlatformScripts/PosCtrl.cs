@@ -18,8 +18,8 @@ public class PosCtrl : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        a = Mathf.Pow((this.transform.position.x - PL.transform.position.x), 2) + Mathf.Pow((this.transform.position.y - PL.transform.position.y), 2);
-        b = Mathf.Pow((this.transform.position.x - PS.transform.position.x), 2) + Mathf.Pow((this.transform.position.y - PS.transform.position.y), 2);
+        a = Mathf.Sqrt(Mathf.Pow((this.transform.position.x - PL.transform.position.x), 2) + Mathf.Pow((this.transform.position.y - PL.transform.position.y), 2));
+        b = Mathf.Sqrt(Mathf.Pow((this.transform.position.x - PS.transform.position.x), 2) + Mathf.Pow((this.transform.position.y - PS.transform.position.y), 2));
         distance = Mathf.Min(a, b);
         if (distance <= Range)
         {
