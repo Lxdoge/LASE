@@ -201,17 +201,12 @@ public class GameManager : MonoBehaviour
 
     //    else return;
     //}
-
+    //重新开始本关
     public void Restart()
     {
         if (panelpause)
         {
-
-            Globe.nextScene = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene("Loading");
-            
-            pause = false;
-            //场景重启的代码需要LXD写
+            load_NewLevel(SceneManager.GetActiveScene().buildIndex);
         }
         else return;
     }
