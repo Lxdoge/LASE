@@ -27,4 +27,8 @@ public class PlayerData {
         sPlayer_Pos = pos;
     }
     
+    public void PlayerLevel(int level)
+    {
+        Level_Num = level;
+    }
 }

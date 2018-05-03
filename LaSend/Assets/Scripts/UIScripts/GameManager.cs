@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     public PlayerData pd;                //玩家数据
 
     public GameObject lPlayer, sPlayer;  //玩家角色
-    public Vector3 lPlayer_Pos, sPlayer_Pos;
 
     [HideInInspector]
     public bool pause;                   //暂停
@@ -19,13 +18,11 @@ public class GameManager : MonoBehaviour
     public bool gameclear;               //通关
     [HideInInspector]
     public bool gameover;                //失败
-
-    public int level;
-    public int scenenum;
-    private int maxlevel = 100;
+    
+    //private int maxlevel = 100;
 
     GameObject panelpause;
-    Canvas thiscanvas;
+    //Canvas thiscanvas;
     float CanvasWidth;
 
     void Start()
@@ -35,7 +32,8 @@ public class GameManager : MonoBehaviour
         gameover = false;
         //pd = new PlayerData();
         Load();                          //读取存档
-        thiscanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        //thiscanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        LoadData();
         //Save();
     }
 
@@ -73,32 +71,25 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
             panelpause = null;
         }
-        DontDestroyOnLoad(this);
     }
-    //public void StartGame()
-    //{
-    //    SceneManager.LoadScene(1);
-    //}
     //退出游戏
     public void ExitGame()
     {
         Application.Quit();
     }
-    //失败-重新开始
+    //失败-从存档点重新开始
     public void ReFromSavePoint()
     {
-        if (gameover)
-        {
-            LoadData();
-        }
+        LoadData();
     }
+    //把状态信息从pd写入存档文件
     public void Save()
     {
         string dataFilePath = GetDataPath() + "/" + dataFileName;
         string serializeDataString = xm.SerializeObject(pd, typeof(PlayerData));
         xm.CreatXML(dataFilePath, serializeDataString);
     }
-
+    //获取游戏根目录
     public string GetDataPath()
     {
         return Application.dataPath;
@@ -133,7 +124,6 @@ public class GameManager : MonoBehaviour
         Load();                           
         Globe.nextScene = pd.Level_Num;
         SceneManager.LoadScene("Loading");//读取xml知道数据保存在哪一个场景中，Globe.nextScene=目标场景层级
-        LoadData();
     }
 
 
@@ -146,16 +136,18 @@ public class GameManager : MonoBehaviour
     {
         pause = false;
         Globe.nextScene = levelnum;
-        if (levelnum <= maxlevel)//maxlevel为当前解锁的最大关卡、也可以是最大关卡，想玩哪关玩哪关
+        switch (levelnum)//根据选关用关卡初始状态覆盖存档
         {
-            SceneManager.LoadScene("Loading");
-            //this.GetComponent<LoadScene>().enabled = true;
-            //添加函数GetInitData()加载目标关卡及目标关卡的全部初始数据，以重新开始该关卡
+            case 0:break;//主菜单
+            case 1:
+                pd.PlayerPos(new Vector3(5.64f, -1.71f, 0));
+                pd.PlayerLevel(1);
+                Save();
+                break;
+            case 2:break;
+            case 3:break;//loading
         }
-        //else if(levelnum==SceneManager.GetActiveScene().buildIndex)
-        //{
-        //    SceneManager.LoadScene("Loading");
-        //}
+        SceneManager.LoadScene("Loading");
     }
 
     /// <summary>
@@ -249,4 +241,5 @@ public class GameManager : MonoBehaviour
        
     }
     //音效再看
+
 }
