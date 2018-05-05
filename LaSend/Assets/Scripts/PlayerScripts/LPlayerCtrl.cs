@@ -5,6 +5,7 @@ using UnityEngine;
 public class LPlayerCtrl : MonoBehaviour {
     Rigidbody2D rBody;                 //刚体
     Animator animator;                 //动画
+    SpriteRenderer spriteRenderer;     //精灵
     public GameObject lSkill;
     /// <summary>
     /// /////////////////////////角色状态变量//////////////////////////////////
@@ -58,6 +59,7 @@ public class LPlayerCtrl : MonoBehaviour {
         status = Status.normal;
         rBody = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         platSpeed = 0.0f;
         environSpeed = 0.0f;
     }
@@ -105,9 +107,7 @@ public class LPlayerCtrl : MonoBehaviour {
     void Flip()
     {
         facingRight = !facingRight;
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
+        spriteRenderer.flipX = !spriteRenderer.flipX;
     }
 
     // 检测并初始化跳跃
@@ -166,6 +166,15 @@ public class LPlayerCtrl : MonoBehaviour {
             lSkill.GetComponent<SpriteRenderer>().enabled = true;
             lSkill.GetComponent<LSkillCtrl>().skillon = true;
             animator.SetBool("Skill", true);
+        }
+    }
+
+    // 检测并播放死亡动画
+    void DeathCheck()
+    {
+        if (death)
+        {
+
         }
     }
 

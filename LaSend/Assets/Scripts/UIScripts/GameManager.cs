@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public PlayerData pd;                //玩家数据
 
     public GameObject lPlayer, sPlayer;  //玩家角色
+    LPlayerCtrl lpCtrl;
+    SPlayerCtrl spCtrl;
 
     [HideInInspector]
     public bool pause;                   //暂停
@@ -30,16 +32,22 @@ public class GameManager : MonoBehaviour
         pause = false;
         gameclear = false;
         gameover = false;
-        //pd = new PlayerData();
         Load();                          //读取存档
         //thiscanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         LoadData();
-        //Save();
+        lpCtrl = GetComponent<LPlayerCtrl>();
+        spCtrl = GetComponent<SPlayerCtrl>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (gameover)
+        {
+            gameover = false;
+            ReFromSavePoint();
+            Debug.Log(2);
+        }
         //Debug.Log(CanvasWidth);
         if (SceneManager.GetActiveScene().buildIndex != 0 && SceneManager.GetActiveScene().name != "Loading")
         {
@@ -71,6 +79,7 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
             panelpause = null;
         }
+        
     }
     //退出游戏
     public void ExitGame()

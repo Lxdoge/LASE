@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class testscript : MonoBehaviour {
     public GameObject gameManager;
-
+    GameManager manager;
 	// Use this for initialization
 	void Start () {
-		
+        manager = gameManager.GetComponent<GameManager>();
 	}
 	
 	// Update is called once per frame
@@ -17,10 +17,11 @@ public class testscript : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "LPlayer")
+        Debug.Log(1);
+        if (collision.tag == "LPlayer")
         {
-            gameManager.GetComponent<GameManager>().pd.PlayerPos(collision.transform.position);
-            gameManager.GetComponent<GameManager>().Save();
+            Debug.Log(0);
+            manager.gameover = true;
         }
     }
 }

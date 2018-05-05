@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SPlayerCtrl : MonoBehaviour {
+    Rigidbody2D rBody;                 //刚体
+    Animator animator;
+    /// <summary>
+    /// /////////////////////////角色状态变量//////////////////////////////////
+    /// </summary>
     [HideInInspector]
     public enum Status { down, right, up, left };//角色状态
     [HideInInspector]
     public Status status;              //角色当前状态
-
-    Rigidbody2D rBody;                 //刚体
     [HideInInspector]
     public bool facingRight = false;   //角色朝向
     public GameObject lMark;           //转向标记
-
-    Animator animator;
+    [HideInInspector]
+    public bool death;         //死亡
     /// <summary>
     /// /////////////////////////水平移动变量//////////////////////////////////
     /// </summary>
@@ -242,7 +245,7 @@ public class SPlayerCtrl : MonoBehaviour {
         //否则，限制移动速度
         if (direction * rBody.velocity.y > moveSpeed + direction * hSpeed || direction == 0)//direction == 0影响惯性
             rBody.velocity = new Vector2(rBody.velocity.x, direction * moveSpeed + hSpeed);
-        Debug.Log(hSpeed);
+        //Debug.Log(hSpeed);
     }
     void JumpGVer(int direction)
     {
