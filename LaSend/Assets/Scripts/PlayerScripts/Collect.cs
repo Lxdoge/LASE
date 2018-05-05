@@ -4,16 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 public class Collect : MonoBehaviour {
-    public RawImage targetstone;
-    public float fadetime = 0.5f;
+    public Image targetstone;
+    public float fadetime = 1.0f;
 	// Use this for initialization
 	void Start () {
-		
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update () {	
 	}
     void OnTriggerEnter2D(Collider2D obj)
     {
