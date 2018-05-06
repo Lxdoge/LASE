@@ -279,6 +279,7 @@ MonoBehaviour:
   isGround:
     serializedVersion: 2
     m_Bits: 2048
+  jump: 0
 --- !u!212 &212726608007715188
 SpriteRenderer:
   m_ObjectHideFlags: 1

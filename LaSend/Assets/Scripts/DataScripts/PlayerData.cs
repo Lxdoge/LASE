@@ -6,16 +6,26 @@ public class PlayerData {
     public Vector3 lPlayer_Pos;
     public Vector3 sPlayer_Pos;
     public int Level_Num;
-    public SavePoint savePoint;
-    public Collection collection;//目前需要每个收集品一个……emmmmmmmmm我之后再改吧
+    /// <summary>
+    /// ///////////////存档点////////////////////////////////
+    /// </summary>
+    public SavePoint[] savePoint;
+    /// <summary>
+    /// ///////////////第一关收集品//////////////////////////
+    /// </summary>
+    public Collection[] collection_1;
 
     public PlayerData()
     {
         Level_Num = 1;
         lPlayer_Pos = new Vector3(0, 0, 0);
         sPlayer_Pos = new Vector3(0, 0, 0);
-        savePoint = new SavePoint(0, 1);
-        collection = new Collection(0, 0, false);
+        savePoint = new SavePoint[7];
+        for (int i = 0; i < 7; i++)
+            savePoint[i] = new SavePoint(i, false);
+        collection_1 = new Collection[7];
+        for (int i = 0; i < 7; i++)
+            collection_1[i] = new Collection(i, false);
     }
     // Use this for initialization
     void Start () {
@@ -38,11 +48,11 @@ public class PlayerData {
 
     public void SavePoint(int num)
     {
-        savePoint = new SavePoint(num, 1);
+        savePoint[num] = new SavePoint(num, true);
     }
 
-    public void GetCollection(int num, int level)
+    public void GetCollection_1(int num)
     {
-        collection = new Collection(num, level, true);
+        collection_1[num] = new Collection(num, true);
     }
 }

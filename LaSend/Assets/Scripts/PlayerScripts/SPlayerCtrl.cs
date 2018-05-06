@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class SPlayerCtrl : MonoBehaviour {
     Rigidbody2D rBody;                 //刚体
     Animator animator;
@@ -43,6 +42,10 @@ public class SPlayerCtrl : MonoBehaviour {
     public Transform groundCheck;      //落地检验物体的空间状态
     public LayerMask isGround;         //地面层
 
+    public 
+    /// <summary>
+    /// ////////////////////
+    /// </summary>
     bool jump;                         //跳跃状态确认
     bool grounded;                     //落地检验
     bool jumpInitial;                  //跳跃初次启动确认

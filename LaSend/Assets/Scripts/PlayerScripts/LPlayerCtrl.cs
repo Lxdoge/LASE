@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using DG.Tweening;
 public class LPlayerCtrl : MonoBehaviour {
     Rigidbody2D rBody;                 //刚体
     Animator animator;                 //动画
@@ -50,7 +51,13 @@ public class LPlayerCtrl : MonoBehaviour {
     bool grounded;                     //落地检验
     bool jumpInitial;                  //跳跃初次启动确认
     float jumpTimer;                   //跳跃判断剩余时间
-
+    
+    public Slider LSlider;
+    public float EnergySpeed=0.05f;
+    [HideInInspector]
+    public bool can_light;
+    [HideInInspector]
+    public float lenergy;//energy范围默认0到1
     // 初始化
     void Start()
     {
@@ -62,10 +69,15 @@ public class LPlayerCtrl : MonoBehaviour {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         platSpeed = 0.0f;
         environSpeed = 0.0f;
+        //LSlider.value = 1;
+
+        can_light = true;
+        lenergy = 1;
     }
 
     // 每帧检测并更新状态
     void Update () {
+        //LSlider.value = lenergy;
         switch (status)
         {
             case Status.normal:
@@ -74,6 +86,15 @@ public class LPlayerCtrl : MonoBehaviour {
             case Status.light:
                 LightCtrl();
                 break;
+        }
+
+        if(lenergy<=0)
+        {
+            can_light = false;
+        }
+        else
+        {
+            can_light = true;
         }
 	}
 
@@ -262,4 +283,20 @@ public class LPlayerCtrl : MonoBehaviour {
         LightMove(hor, ver);
     }
 
+    void ConsumeEnergy()
+    {
+        if (lenergy >= 0 && lenergy <= 1f)
+        {
+            lenergy -= EnergySpeed;
+        }
+        else return;
+    }
+    void ResumeEnergy()
+    {
+        if (lenergy >= 0 && lenergy <= 1f)
+        {
+            lenergy += EnergySpeed;
+        }
+        else return;
+    }
 }

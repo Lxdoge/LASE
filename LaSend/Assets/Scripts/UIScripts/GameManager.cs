@@ -16,9 +16,7 @@ public class GameManager : MonoBehaviour
 
     
     public int levelNum;
-
-    public GameObject[] savepoint;
-    SavePointCtrl[] saveCtrl;
+    
 
     [HideInInspector]
     public bool pause;                   //暂停
@@ -34,8 +32,9 @@ public class GameManager : MonoBehaviour
     float CanvasWidth;
     private void Awake()
     {
+        //pd = new PlayerData();
+        //Save();
         Load();
-        LoadData(); 
     }
     void Start()
     {
@@ -48,6 +47,8 @@ public class GameManager : MonoBehaviour
         
         lpCtrl = GetComponent<LPlayerCtrl>();
         spCtrl = GetComponent<SPlayerCtrl>();
+
+        LoadData();
     }
 
     // Update is called once per frame
@@ -100,6 +101,7 @@ public class GameManager : MonoBehaviour
     //失败-从存档点重新开始
     public void ReFromSavePoint()
     {
+        Load();
         LoadData();
     }
     //把状态信息从pd写入存档文件
@@ -160,6 +162,7 @@ public class GameManager : MonoBehaviour
         {
             case 0:break;//主菜单
             case 1:
+                pd = new PlayerData();
                 pd.PlayerPos(new Vector3(5.64f, -1.71f, 0));
                 pd.PlayerLevel(1);
                 pd.SavePoint(0);
@@ -170,10 +173,7 @@ public class GameManager : MonoBehaviour
         }
         SceneManager.LoadScene("Loading");
     }
-
-    /// <summary>
-    /// ///////////////////////////////////////////////////////////
-    /// </summary>
+    
     //void PauseGame()
     //{
     //    pause = true;//暂停的算法日后要改

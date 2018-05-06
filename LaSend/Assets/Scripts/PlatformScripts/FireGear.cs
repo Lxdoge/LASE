@@ -27,7 +27,7 @@ public class FireGear : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.GetComponent<Collider2D>().enabled = this.GetComponent<PosCtrl>().is_open;
+        GetComponent<Collider2D>().enabled = GetComponent<PosCtrl>().is_open;
         if (lopen && is_firstopen)
         {
             Timerl -= Time.deltaTime;
@@ -55,6 +55,7 @@ public class FireGear : MonoBehaviour
         {
             is_firstopen = true;
         }
+        Debug.Log(1);
     }
     void OnTriggerStay2D(Collider2D obj)
     {

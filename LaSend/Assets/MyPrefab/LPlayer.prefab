@@ -248,6 +248,10 @@ MonoBehaviour:
   isGround:
     serializedVersion: 2
     m_Bits: 2048
+  LSlider: {fileID: 0}
+  EnergySpeed: 0.05
+  can_light: 0
+  lenergy: 0
 --- !u!212 &212890255801983858
 SpriteRenderer:
   m_ObjectHideFlags: 1
