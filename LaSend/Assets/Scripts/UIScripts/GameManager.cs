@@ -14,6 +14,12 @@ public class GameManager : MonoBehaviour
     LPlayerCtrl lpCtrl;
     SPlayerCtrl spCtrl;
 
+    
+    public int levelNum;
+
+    public GameObject[] savepoint;
+    SavePointCtrl[] saveCtrl;
+
     [HideInInspector]
     public bool pause;                   //暂停
     [HideInInspector]
@@ -26,15 +32,20 @@ public class GameManager : MonoBehaviour
     GameObject panelpause;
     //Canvas thiscanvas;
     float CanvasWidth;
-
+    private void Awake()
+    {
+        Load();
+        LoadData(); 
+    }
     void Start()
     {
+        //pd = new PlayerData();
+        //Save();
         pause = false;
         gameclear = false;
         gameover = false;
-        Load();                          //读取存档
         //thiscanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
-        LoadData();
+        
         lpCtrl = GetComponent<LPlayerCtrl>();
         spCtrl = GetComponent<SPlayerCtrl>();
     }
@@ -151,6 +162,7 @@ public class GameManager : MonoBehaviour
             case 1:
                 pd.PlayerPos(new Vector3(5.64f, -1.71f, 0));
                 pd.PlayerLevel(1);
+                pd.SavePoint(0);
                 Save();
                 break;
             case 2:break;

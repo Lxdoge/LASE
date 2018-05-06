@@ -6,6 +6,7 @@ using DG.Tweening;
 public class Collect : MonoBehaviour {
     public Image targetstone;
     public float fadetime = 1.0f;
+    public ParticleSystem collectUIfx;
 	// Use this for initialization
 	void Start () {
 	}
@@ -21,6 +22,7 @@ public class Collect : MonoBehaviour {
             targetstone.DOFade(1.0f,fadetime);
             //公有变量收集+1
             Destroy(this.gameObject);
+            collectUIfx.Play();
         }
 
     }
