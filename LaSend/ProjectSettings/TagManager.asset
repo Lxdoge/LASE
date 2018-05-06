@@ -7,6 +7,7 @@ TagManager:
   - SPlayer
   - LPlayer
   - "\u80CC\u666F"
+  - Damage
   layers:
   - Default
   - TransparentFX
