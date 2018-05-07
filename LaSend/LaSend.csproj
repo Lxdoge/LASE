@@ -365,6 +365,7 @@
     <None Include="Assets\LaSData.Xml" />
     <None Include="Assets\MyShaders\CFX3 Multiply Color.shader" />
     <None Include="Assets\MyShaders\CFXM_MobileParticleAdd_Alpha8.shader" />
+    <None Include="Assets\MyShaders\Outline.shader" />
     <None Include="Assets\Tilemap\Brushes\Tint Brush Smooth\Shaders\TintedTilemap.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

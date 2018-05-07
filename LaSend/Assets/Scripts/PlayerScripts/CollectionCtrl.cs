@@ -14,6 +14,9 @@ public class CollectionCtrl : MonoBehaviour {
     bool isCollected;
     public int NumofCollection;       //在关卡内的编号，外部定义
     public int Level_Num;             //关卡编号，外部定义
+    public Image targetImage;
+    public float fadetime = 1.0f;
+    public ParticleSystem par;
     // Use this for initialization
     void Start () {
         manager = gameManager.GetComponent<GameManager>();
@@ -35,7 +38,11 @@ public class CollectionCtrl : MonoBehaviour {
         if (isCollected)//已收集状态
         {
             //关于UI的更新写在这里！
-
+            if(targetImage)
+            {
+                targetImage.DOColor(Color.white, fadetime);
+                par.Play();
+            }
             //关闭显示等，变成空物体，避免重复检测
             spriteRenderer.enabled = false;
             Box.enabled = false;
