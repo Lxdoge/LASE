@@ -6,7 +6,9 @@ public class PosCtrl : MonoBehaviour {
     public float Range=10;
     public GameObject PL;
     public GameObject PS;
-    public bool is_open = false;
+    bool is_open = false;
+    public Collider2D co;
+    
     float distance;
     float a, b;
     // Use this for initialization
@@ -18,16 +20,23 @@ public class PosCtrl : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        a = Mathf.Sqrt(Mathf.Pow((this.transform.position.x - PL.transform.position.x), 2) + Mathf.Pow((this.transform.position.y - PL.transform.position.y), 2));
-        b = Mathf.Sqrt(Mathf.Pow((this.transform.position.x - PS.transform.position.x), 2) + Mathf.Pow((this.transform.position.y - PS.transform.position.y), 2));
+        a = Vector3.Distance(transform.position, PL.transform.position);
+        b = Vector3.Distance(transform.position, PS.transform.position);
         distance = Mathf.Min(a, b);
-        if (distance <= Range)
+
+        if (is_open)
         {
-            this.is_open = true;
+            if(distance > Range)
+            {
+                is_open = false;
+            }
         }
         else
         {
-            this.is_open = false;
+            if (distance <= Range)
+            {
+                is_open = true;
+            }
         }
 
     }

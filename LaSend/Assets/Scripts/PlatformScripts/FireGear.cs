@@ -13,7 +13,6 @@ public class FireGear : MonoBehaviour
     public GameObject Bullet_L;
     public GameObject Bullet_S;
     //public float Cycle_Time;//越短发射越多
-    private GameObject targetplayer;
     private float Timerl;
     private float Timers;
     public float FireCd = 1f;
@@ -27,7 +26,6 @@ public class FireGear : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Collider2D>().enabled = GetComponent<PosCtrl>().is_open;
         if (lopen && is_firstopen)
         {
             Timerl -= Time.deltaTime;
@@ -63,13 +61,12 @@ public class FireGear : MonoBehaviour
         if (thetag == "LPlayer")
         {
             Debug.Log("LL");
-            targetplayer = Bullet_L;
+
             this.lopen = true;
         }
         if (thetag == "SPlayer")
         {
             Debug.Log("SS");
-            targetplayer = Bullet_S;
             this.sopen = true;
         }
     }
