@@ -86,7 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec5c40b8a9036884982d1ae5256362c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 3
+  life: 1
   speed: 10
   toL: 1
   targetpos: {x: 0, y: 0, z: 0}

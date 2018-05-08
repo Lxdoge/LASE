@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-public class LPlayerCtrl : MonoBehaviour {
-    Rigidbody2D rBody;                 //刚体
+public class LPlayerCtrl : MonoBehaviour
+{
+    [HideInInspector]
+    public Rigidbody2D rBody;                 //刚体
     Animator animator;                 //动画
     SpriteRenderer spriteRenderer;     //精灵
     public GameObject lSkill;
@@ -12,7 +14,7 @@ public class LPlayerCtrl : MonoBehaviour {
     /// /////////////////////////角色状态变量//////////////////////////////////
     /// </summary>
     [HideInInspector]
-    public enum Status { normal, light };//角色状态
+    public enum Status { normal, light, death };//角色状态
     [HideInInspector]
     public Status status;              //角色当前状态
     [HideInInspector]
@@ -82,6 +84,10 @@ public class LPlayerCtrl : MonoBehaviour {
             case Status.light:
                 LightCtrl();
                 break;
+            case Status.death:
+                DeathCtrl();
+                break;
+
         }
         
 	}
@@ -187,7 +193,13 @@ public class LPlayerCtrl : MonoBehaviour {
     {
         if (death)
         {
+            Debug.Log(2);
+            death = false;
+            animator.SetBool("Death", true);
 
+            status = Status.death;
+            rBody.gravityScale = 0.0f;
+            GetComponent<CapsuleCollider2D>().enabled = false;
         }
     }
 
@@ -209,6 +221,7 @@ public class LPlayerCtrl : MonoBehaviour {
         ResumeEnergy();
         JumpCheck();
         LightCheck();
+        DeathCheck();
         animator.SetFloat("Hor", Mathf.Abs(hor));
         LSlider.value = lenergy;
     }
@@ -272,6 +285,7 @@ public class LPlayerCtrl : MonoBehaviour {
             Flip();
         ConsumeEnergy();
         LightEnd();
+        DeathCheck();
         LSlider.value = lenergy;
     }
     void LightFixedCtrl()
@@ -290,5 +304,16 @@ public class LPlayerCtrl : MonoBehaviour {
             lenergy += EnergyRecall * Time.deltaTime;
         if (lenergy > 1)
             lenergy = 1;
+    }
+
+    //
+    void DeathCtrl()
+    {
+        if (!animator.GetBool("Death"))
+        {
+            status = Status.normal;
+            rBody.gravityScale = 3.0f;
+            GetComponent<CapsuleCollider2D>().enabled = true;
+        }
     }
 }

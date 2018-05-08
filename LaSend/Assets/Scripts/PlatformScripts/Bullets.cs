@@ -25,11 +25,12 @@ public class Bullets : MonoBehaviour {
         else
             transform.Rotate(new Vector3(0, 0, -Vector3.Angle(new Vector3(targetpos.x - transform.position.x, targetpos.y - transform.position.y), Vector3.right)));
         distance = Vector3.Distance(targetpos, transform.position);
+        life = distance / speed;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        transform.DOMove(targetpos, distance/speed);
+        transform.DOMove(targetpos, life);
         life -= Time.deltaTime;
         if(life < 0)
         {
@@ -38,6 +39,11 @@ public class Bullets : MonoBehaviour {
 	}
     void OnTriggerEnter2D(Collider2D obj)
     {
+        if(obj.tag == "LPlayer")
+        {
+            Debug.Log(1);
+            obj.GetComponent<LPlayerCtrl>().death = true;
+        }
         Destroy(gameObject);
     }
 }

@@ -56,9 +56,9 @@ public class GameManager : MonoBehaviour
     {
         if (gameover)
         {
+            Debug.Log(3);
             gameover = false;
             ReFromSavePoint();
-            Debug.Log(2);
         }
         //Debug.Log(CanvasWidth);
         if (SceneManager.GetActiveScene().buildIndex != 0 && SceneManager.GetActiveScene().name != "Loading")
@@ -138,7 +138,6 @@ public class GameManager : MonoBehaviour
         //角色位置
         lPlayer.transform.position = pd.lPlayer_Pos;
         sPlayer.transform.position = pd.sPlayer_Pos;
-        //收集品信息
     }
     //根据存档载入游戏
     public void LoadGame()
