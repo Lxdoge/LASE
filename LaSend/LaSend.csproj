@@ -306,6 +306,7 @@
     <Compile Include="Assets\Animations\BlackAttackBehaviour.cs" />
     <Compile Include="Assets\Animations\BlackJumpUpBehaviour.cs" />
     <Compile Include="Assets\Animations\WhiteSkillBehaviour.cs" />
+    <Compile Include="Assets\BlackDeathBehaviour.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Examples\Basics.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Examples\Sequences.cs" />
     <Compile Include="Assets\FireBoomBehaviour.cs" />

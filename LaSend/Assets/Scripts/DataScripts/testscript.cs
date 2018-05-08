@@ -17,11 +17,9 @@ public class testscript : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(1);
         if (collision.tag == "LPlayer")
-        {
-            Debug.Log(0);
-            manager.gameover = true;
-        }
+            collision.GetComponent<LPlayerCtrl>().death = true;
+        if (collision.tag == "SPlayer")
+            collision.GetComponent<SPlayerCtrl>().death = true;
     }
 }

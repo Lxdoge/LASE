@@ -9,7 +9,7 @@ public class SPlayerCtrl : MonoBehaviour {
     /// /////////////////////////角色状态变量//////////////////////////////////
     /// </summary>
     [HideInInspector]
-    public enum Status { down, right, up, left };//角色状态
+    public enum Status { down, right, up, left, death };//角色状态
     [HideInInspector]
     public Status status;              //角色当前状态
     [HideInInspector]
@@ -74,6 +74,11 @@ public class SPlayerCtrl : MonoBehaviour {
 
     // 每帧检测并更新状态
     void Update () {
+        if(status == Status.death)
+        {
+            DeathCtrl();
+            return;
+        }
         if (animator.GetBool("Attack"))
             return;
         hor = Input.GetAxis("SHorizontal");
@@ -104,6 +109,7 @@ public class SPlayerCtrl : MonoBehaviour {
         }
         JumpCheck();
         GChangeCheck();
+        DeathCheck();
 
         animator.SetFloat("Hor", Mathf.Abs(hor));
     }
@@ -178,6 +184,20 @@ public class SPlayerCtrl : MonoBehaviour {
         }//down影响手感有待验证
     }
 
+    // 检测并播放死亡动画
+    void DeathCheck()
+    {
+        if (death)
+        {
+            death = false;
+            animator.SetBool("Death", true);
+
+            status = Status.death;
+            rBody.velocity = Vector3.zero;
+            Sgravity2D = Vector2.zero;
+            GetComponent<CapsuleCollider2D>().enabled = false;
+        }
+    }
     //Down和Up状态的移动
     public void MoveGHor(int direction)
     {
@@ -357,5 +377,15 @@ public class SPlayerCtrl : MonoBehaviour {
             senergy += EnergyRecall * Time.deltaTime;
         if (senergy > 1)
             senergy = 1;
+    }
+
+    void DeathCtrl()
+    {
+        if (!animator.GetBool("Death"))
+        {
+            status = Status.down;
+            GetComponent<CapsuleCollider2D>().enabled = true;
+            GChangeCheck();
+        }
     }
 }
