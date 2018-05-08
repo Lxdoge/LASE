@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 public class SPlayerCtrl : MonoBehaviour {
     Rigidbody2D rBody;                 //刚体
     Animator animator;
+    SpriteRenderer spriteRenderer;     //精灵
     /// <summary>
     /// /////////////////////////角色状态变量//////////////////////////////////
     /// </summary>
@@ -51,19 +53,25 @@ public class SPlayerCtrl : MonoBehaviour {
     bool jumpInitial;                  //跳跃初次启动确认
     float jumpTimer;                   //跳跃判断剩余时间
     /// <summary>
-    ///  ////////////////////////攻击变量/////////////////////////////////
+    ///  ////////////////////////能量变量/////////////////////////////////
     /// </summary>
+    public Slider SSlider;             //能量条
+    public float EnergyCost;
+    public float EnergyRecall;         //能量恢复速度
+    float senergy;//energy范围默认0到1
+
 
     // 初始化
     void Start()
     {
         status = Status.down;
         rBody = GetComponent<Rigidbody2D>();
-
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         animator = GetComponentInChildren<Animator>();
         Sgravity2D = new Vector2(0, -29.43f);
         platSpeed = 0.0f;
         environSpeed = 0.0f;
+        senergy = 1;
     }
 
     // 每帧检测并更新状态
@@ -72,7 +80,9 @@ public class SPlayerCtrl : MonoBehaviour {
             return;
         hor = Input.GetAxis("SHorizontal");
         //根据移动方向翻转角色朝向
-        
+
+        SSlider.value = senergy;
+        ResumeEnergy();
         if (hor > 0 && !facingRight)
             Flip();
         else if (hor < 0 && facingRight)
@@ -126,6 +136,9 @@ public class SPlayerCtrl : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            if (senergy < EnergyCost)
+                return;
+            ConsumeEnergy();
             switch (lMark.GetComponent<Lmark>().status)
             {
                 case Lmark.Status.down:
@@ -319,16 +332,32 @@ public class SPlayerCtrl : MonoBehaviour {
     void Flip()
     {
         facingRight = !facingRight;
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
+        Vector3 local = transform.localScale;
+        local.x = -local.x;
+        transform.localScale = local;
     }
     //攻击
     void AttackCheck()
     {
         if (Input.GetButtonDown("SAttack") && grounded)
         {
+            if (senergy < EnergyCost)
+                return;
+            ConsumeEnergy();
             animator.SetBool("Attack", true);
         }
+    }
+
+    //能量控制函数
+    void ConsumeEnergy()//消耗
+    {
+        senergy -= EnergyCost;
+    }
+    void ResumeEnergy()//恢复
+    {
+        if (senergy < 1)
+            senergy += EnergyRecall * Time.deltaTime;
+        if (senergy > 1)
+            senergy = 1;
     }
 }

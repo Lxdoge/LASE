@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 58687525460916598}
   - component: {fileID: 114136336510918872}
   - component: {fileID: 95214774149814778}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: BulletL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ MonoBehaviour:
   life: 3
   speed: 10
   toL: 1
-  targetpos: {x: 0, y: 0}
+  targetpos: {x: 0, y: 0, z: 0}
 --- !u!212 &212356928759239354
 SpriteRenderer:
   m_ObjectHideFlags: 1

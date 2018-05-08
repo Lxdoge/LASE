@@ -4,11 +4,11 @@ using UnityEngine;
 using DG.Tweening;
 public class Bullets : MonoBehaviour {
 
-    public float life=3;
+    public float life;
     public float speed;
     public bool toL;
     [HideInInspector]
-    public Vector2 targetpos;
+    public Vector3 targetpos;
     // Use this for initialization
     float distance;
     void Start () {
@@ -20,16 +20,24 @@ public class Bullets : MonoBehaviour {
         {
             targetpos = GameObject.Find("SPlayer").transform.position;
         }
-        Destroy(this.gameObject, life);
-        distance = Mathf.Sqrt(Mathf.Pow(this.transform.position.x-targetpos.x, 2) + Mathf.Pow(this.transform.position.y -targetpos.y, 2));
+        if (targetpos.y - transform.position.y >= 0)
+            transform.Rotate(new Vector3(0, 0, Vector3.Angle(new Vector3(targetpos.x - transform.position.x, targetpos.y - transform.position.y), Vector3.right)));
+        else
+            transform.Rotate(new Vector3(0, 0, -Vector3.Angle(new Vector3(targetpos.x - transform.position.x, targetpos.y - transform.position.y), Vector3.right)));
+        distance = Vector3.Distance(targetpos, transform.position);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        this.transform.DOMove(targetpos, distance/speed);
+        transform.DOMove(targetpos, distance/speed);
+        life -= Time.deltaTime;
+        if(life < 0)
+        {
+            Destroy(gameObject);
+        }
 	}
     void OnTriggerEnter2D(Collider2D obj)
     {
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 }

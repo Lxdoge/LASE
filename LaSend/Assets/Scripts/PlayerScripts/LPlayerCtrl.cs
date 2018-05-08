@@ -51,13 +51,13 @@ public class LPlayerCtrl : MonoBehaviour {
     bool grounded;                     //落地检验
     bool jumpInitial;                  //跳跃初次启动确认
     float jumpTimer;                   //跳跃判断剩余时间
-    
-    public Slider LSlider;
-    public float EnergySpeed=0.05f;
-    [HideInInspector]
-    public bool can_light;
-    [HideInInspector]
-    public float lenergy;//energy范围默认0到1
+    /// <summary>
+    /// /////////////////////////能量变量/////////////////////////////////
+    /// </summary>
+    public Slider LSlider;             //能量条
+    public float EnergySpeed;          //能量消耗速度（1/t）
+    public float EnergyRecall;         //能量恢复速度
+    float lenergy;//energy范围默认0到1
     // 初始化
     void Start()
     {
@@ -69,15 +69,11 @@ public class LPlayerCtrl : MonoBehaviour {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         platSpeed = 0.0f;
         environSpeed = 0.0f;
-        //LSlider.value = 1;
-
-        can_light = true;
         lenergy = 1;
     }
 
     // 每帧检测并更新状态
     void Update () {
-        //LSlider.value = lenergy;
         switch (status)
         {
             case Status.normal:
@@ -87,15 +83,7 @@ public class LPlayerCtrl : MonoBehaviour {
                 LightCtrl();
                 break;
         }
-
-        if(lenergy<=0)
-        {
-            can_light = false;
-        }
-        else
-        {
-            can_light = true;
-        }
+        
 	}
 
     // 固定间隔根据角色状态更新物理系统
@@ -128,7 +116,9 @@ public class LPlayerCtrl : MonoBehaviour {
     void Flip()
     {
         facingRight = !facingRight;
-        spriteRenderer.flipX = !spriteRenderer.flipX;
+        Vector3 local = transform.localScale;
+        local.x = -local.x;
+        transform.localScale = local;
     }
 
     // 检测并初始化跳跃
@@ -180,6 +170,8 @@ public class LPlayerCtrl : MonoBehaviour {
     {
         if (Input.GetButtonDown("Light"))
         {
+            if (lenergy < 0.2)
+                return;
             //切换状态
             status = Status.light;
             //去除重力
@@ -214,9 +206,11 @@ public class LPlayerCtrl : MonoBehaviour {
             animator.SetBool("Jump", false);
         }
         animator.SetFloat("SpeedY", rBody.velocity.y);
+        ResumeEnergy();
         JumpCheck();
         LightCheck();
         animator.SetFloat("Hor", Mathf.Abs(hor));
+        LSlider.value = lenergy;
     }
     void NormalFixedCtrl()
     {
@@ -235,7 +229,7 @@ public class LPlayerCtrl : MonoBehaviour {
     //结束发光状态
     void LightEnd()
     {
-        if (Input.GetButtonDown("Light"))
+        if (Input.GetButtonDown("Light") || lenergy <= 0)//主动取消或能量耗尽
         {
             if (animator.GetBool("SkillON"))
                 return;
@@ -276,27 +270,25 @@ public class LPlayerCtrl : MonoBehaviour {
             Flip();
         else if (hor < 0 && facingRight)
             Flip();
+        ConsumeEnergy();
         LightEnd();
+        LSlider.value = lenergy;
     }
     void LightFixedCtrl()
     {
         LightMove(hor, ver);
     }
 
-    void ConsumeEnergy()
+    //能量控制函数
+    void ConsumeEnergy()//消耗
     {
-        if (lenergy >= 0 && lenergy <= 1f)
-        {
-            lenergy -= EnergySpeed;
-        }
-        else return;
+        lenergy -= EnergySpeed * Time.deltaTime;
     }
-    void ResumeEnergy()
+    void ResumeEnergy()//恢复
     {
-        if (lenergy >= 0 && lenergy <= 1f)
-        {
-            lenergy += EnergySpeed;
-        }
-        else return;
+        if (lenergy < 1)
+            lenergy += EnergyRecall * Time.deltaTime;
+        if (lenergy > 1)
+            lenergy = 1;
     }
 }

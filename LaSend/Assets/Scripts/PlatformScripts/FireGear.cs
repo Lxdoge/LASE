@@ -5,6 +5,7 @@ using DG.Tweening;
 using UnityEditor;
 public class FireGear : MonoBehaviour
 {
+
     bool is_firstopen = false;
     [HideInInspector]
     public bool lopen = false;
@@ -12,35 +13,35 @@ public class FireGear : MonoBehaviour
     public bool sopen = false;
     public GameObject Bullet_L;
     public GameObject Bullet_S;
+    public GameObject Gun;
     //public float Cycle_Time;//越短发射越多
-    private float Timerl;
-    private float Timers;
+    public float Timerl;
+    public float Timers;
     public float FireCd = 1f;
     // Use this for initialization
     void Start()
     {
-        Timerl = 0;
-        Timers = 0;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (lopen && is_firstopen)
+        if (lopen)
         {
             Timerl -= Time.deltaTime;
             if (Timerl <= 0)
             {
-                fireL();
+                FireL();
                 Timerl = FireCd;
             }
         }
-        if(sopen && is_firstopen)
+        if (sopen)
         {
             Timers -= Time.deltaTime;
             if (Timers <= 0)
             {
-                fireS();
+                FireS();
                 Timers = FireCd;
             }
         }
@@ -48,26 +49,18 @@ public class FireGear : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D obj)
     {
-        string ta = obj.gameObject.tag;
-        if (ta == "LPlayer" || ta == "SPlayer")
-        {
-            is_firstopen = true;
-        }
-        Debug.Log(1);
+        
     }
     void OnTriggerStay2D(Collider2D obj)
     {
         string thetag = obj.gameObject.tag;
         if (thetag == "LPlayer")
         {
-            Debug.Log("LL");
-
-            this.lopen = true;
+            lopen = true;
         }
         if (thetag == "SPlayer")
         {
-            Debug.Log("SS");
-            this.sopen = true;
+            sopen = true;
         }
     }
     void OnTriggerExit2D(Collider2D obj)
@@ -75,23 +68,21 @@ public class FireGear : MonoBehaviour
         string thetag = obj.gameObject.tag;
         if (thetag == "LPlayer")
         {
-            Debug.Log("LF");
-            this.lopen = false;
+            lopen = false;
         }
         if (thetag == "SPlayer")
         {
-            Debug.Log("SF");
-            this.sopen = false;
+            sopen = false;
         }
     }
-    void fireL()
+    void FireL()
     {
-        GameObject bl = Instantiate(Bullet_L, this.transform.position, this.transform.rotation);
+        GameObject bl = Instantiate(Bullet_L, Gun.transform.position, Gun.transform.rotation);
         Debug.Log("bulletl");
     }
-    void fireS()
+    void FireS()
     {
-        GameObject bs = Instantiate(Bullet_S, this.transform.position, this.transform.rotation);
+        GameObject bs = Instantiate(Bullet_S, Gun.transform.position, Gun.transform.rotation);
         Debug.Log("bullets");
     }
 }

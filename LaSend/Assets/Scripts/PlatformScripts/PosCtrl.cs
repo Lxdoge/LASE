@@ -7,14 +7,16 @@ public class PosCtrl : MonoBehaviour {
     public GameObject PL;
     public GameObject PS;
     bool is_open = false;
-    public Collider2D co;
+    BoxCollider2D box;
+    FireGear fire;
     
     float distance;
     float a, b;
     // Use this for initialization
     void Start()
     {
-
+        box = GetComponent<BoxCollider2D>();
+        fire = GetComponent<FireGear>();
     }
 
     // Update is called once per frame
@@ -29,6 +31,8 @@ public class PosCtrl : MonoBehaviour {
             if(distance > Range)
             {
                 is_open = false;
+                fire.enabled = false;
+                box.enabled = false;
             }
         }
         else
@@ -36,6 +40,8 @@ public class PosCtrl : MonoBehaviour {
             if (distance <= Range)
             {
                 is_open = true;
+                fire.enabled = true;
+                box.enabled = true;
             }
         }
 
