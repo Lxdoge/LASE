@@ -31,7 +31,6 @@ public class WhiteDeathBehaviour : StateMachineBehaviour {
     public GameManager gameManager;
     public override void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
     {
-        Debug.Log(4);
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         gameManager.gameover = true;
         animator.SetBool("Death", false);

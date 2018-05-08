@@ -28,12 +28,10 @@ public class Gear : MonoBehaviour
     public float moveLong = 0;
     public GameObject Target;//目标
     public float stay_time = 0f;
-    float countime;
 
     // Use this for initialization
     void Start()
     {
-        countime = 0f;
     }
 
     // Update is called once per frame

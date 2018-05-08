@@ -9,9 +9,12 @@ public class Bullets : MonoBehaviour {
     public bool toL;
     [HideInInspector]
     public Vector3 targetpos;
+    Animator animator;
+    Rigidbody2D rBody;
     // Use this for initialization
     float distance;
     void Start () {
+        animator = GetComponent<Animator>();
         if(toL)
         {
             targetpos = GameObject.Find("LPlayer").transform.position;
@@ -24,26 +27,33 @@ public class Bullets : MonoBehaviour {
             transform.Rotate(new Vector3(0, 0, Vector3.Angle(new Vector3(targetpos.x - transform.position.x, targetpos.y - transform.position.y), Vector3.right)));
         else
             transform.Rotate(new Vector3(0, 0, -Vector3.Angle(new Vector3(targetpos.x - transform.position.x, targetpos.y - transform.position.y), Vector3.right)));
-        distance = Vector3.Distance(targetpos, transform.position);
-        life = distance / speed;
+        rBody = GetComponent<Rigidbody2D>();
+        rBody.velocity = new Vector3(targetpos.x - transform.position.x, targetpos.y - transform.position.y).normalized * speed;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        transform.DOMove(targetpos, life);
         life -= Time.deltaTime;
-        if(life < 0)
+        if(life <= 0)
         {
-            Destroy(gameObject);
+            animator.SetBool("Boom", true);
+            GetComponent<Collider2D>().enabled = false;
+            rBody.velocity = Vector3.zero;
+            if (animator.GetBool("Death"))
+            {
+                Destroy(gameObject);
+            }
         }
 	}
     void OnTriggerEnter2D(Collider2D obj)
     {
         if(obj.tag == "LPlayer")
         {
-            Debug.Log(1);
             obj.GetComponent<LPlayerCtrl>().death = true;
         }
-        Destroy(gameObject);
+        life = 0;
+        animator.SetBool("Boom", true);
+        GetComponent<Collider2D>().enabled = false;
+        rBody.velocity = Vector3.zero;
     }
 }

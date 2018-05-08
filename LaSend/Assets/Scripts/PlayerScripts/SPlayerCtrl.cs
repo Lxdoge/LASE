@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class SPlayerCtrl : MonoBehaviour {
     Rigidbody2D rBody;                 //刚体
     Animator animator;
-    SpriteRenderer spriteRenderer;     //精灵
     /// <summary>
     /// /////////////////////////角色状态变量//////////////////////////////////
     /// </summary>
@@ -66,7 +65,6 @@ public class SPlayerCtrl : MonoBehaviour {
     {
         status = Status.down;
         rBody = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         animator = GetComponentInChildren<Animator>();
         Sgravity2D = new Vector2(0, -29.43f);
         platSpeed = 0.0f;

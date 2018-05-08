@@ -25,11 +25,9 @@ public class LoadScene : MonoBehaviour
         //显示进度条
         loadingSlider.value = 0.0f;
 
-        if (SceneManager.GetActiveScene().name == "Loading")
-        {
-            //启动协程  
-            StartCoroutine(AsyncLoading());
-        }
+        
+        //启动协程  
+        StartCoroutine(AsyncLoading());
     }
 
     IEnumerator AsyncLoading()

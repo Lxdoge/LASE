@@ -8,7 +8,6 @@ public class LPlayerCtrl : MonoBehaviour
     [HideInInspector]
     public Rigidbody2D rBody;                 //刚体
     Animator animator;                 //动画
-    SpriteRenderer spriteRenderer;     //精灵
     public GameObject lSkill;
     /// <summary>
     /// /////////////////////////角色状态变量//////////////////////////////////
@@ -68,7 +67,6 @@ public class LPlayerCtrl : MonoBehaviour
         status = Status.normal;
         rBody = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         platSpeed = 0.0f;
         environSpeed = 0.0f;
         lenergy = 1;
@@ -193,11 +191,11 @@ public class LPlayerCtrl : MonoBehaviour
     {
         if (death)
         {
-            Debug.Log(2);
             death = false;
             animator.SetBool("Death", true);
 
             status = Status.death;
+            rBody.velocity = Vector3.zero;
             rBody.gravityScale = 0.0f;
             GetComponent<CapsuleCollider2D>().enabled = false;
         }

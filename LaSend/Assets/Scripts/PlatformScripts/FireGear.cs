@@ -6,7 +6,7 @@ using UnityEditor;
 public class FireGear : MonoBehaviour
 {
 
-    bool is_firstopen = false;
+
     [HideInInspector]
     public bool lopen = false;
     [HideInInspector]
@@ -77,12 +77,10 @@ public class FireGear : MonoBehaviour
     }
     void FireL()
     {
-        GameObject bl = Instantiate(Bullet_L, Gun.transform.position, Gun.transform.rotation);
-        Debug.Log("bulletl");
+        Instantiate(Bullet_L, Gun.transform.position, Gun.transform.rotation);
     }
     void FireS()
     {
-        GameObject bs = Instantiate(Bullet_S, Gun.transform.position, Gun.transform.rotation);
-        Debug.Log("bullets");
+        Instantiate(Bullet_S, Gun.transform.position, Gun.transform.rotation);
     }
 }

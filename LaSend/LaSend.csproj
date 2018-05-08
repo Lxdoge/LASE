@@ -303,10 +303,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\BlackAttackBehaviour.cs" />
-    <Compile Include="Assets\BlackJumpUpBehaviour.cs" />
+    <Compile Include="Assets\Animations\BlackAttackBehaviour.cs" />
+    <Compile Include="Assets\Animations\BlackJumpUpBehaviour.cs" />
+    <Compile Include="Assets\Animations\WhiteSkillBehaviour.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Examples\Basics.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Examples\Sequences.cs" />
+    <Compile Include="Assets\FireBoomBehaviour.cs" />
     <Compile Include="Assets\GhostSprites2D\Scripts\CameraController.cs" />
     <Compile Include="Assets\GhostSprites2D\Scripts\GhostSprites\GhostSprites.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\CameraPoint.cs" />
@@ -352,7 +354,7 @@
     <Compile Include="Assets\Tilemap\Tiles\Random Tile\Scripts\RandomTile.cs" />
     <Compile Include="Assets\Tilemap\Tiles\Rule Tile\Scripts\RuleTile.cs" />
     <Compile Include="Assets\Tilemap\Tiles\Terrain Tile\Scripts\TerrainTile.cs" />
-    <Compile Include="Assets\WhiteSkillBehaviour.cs" />
+    <Compile Include="Assets\WhiteDeathBehaviour.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Demigiant\DOTween\DOTween.XML" />

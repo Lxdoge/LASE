@@ -11,8 +11,6 @@ public class GameManager : MonoBehaviour
     public PlayerData pd;                //玩家数据
 
     public GameObject lPlayer, sPlayer;  //玩家角色
-    LPlayerCtrl lpCtrl;
-    SPlayerCtrl spCtrl;
 
     
     public int levelNum;
@@ -44,9 +42,6 @@ public class GameManager : MonoBehaviour
         gameclear = false;
         gameover = false;
         //thiscanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
-        
-        lpCtrl = GetComponent<LPlayerCtrl>();
-        spCtrl = GetComponent<SPlayerCtrl>();
 
         LoadData();
     }
@@ -56,7 +51,6 @@ public class GameManager : MonoBehaviour
     {
         if (gameover)
         {
-            Debug.Log(3);
             gameover = false;
             ReFromSavePoint();
         }
@@ -142,7 +136,7 @@ public class GameManager : MonoBehaviour
     //根据存档载入游戏
     public void LoadGame()
     {
-        Load();                           
+        Load();
         Globe.nextScene = pd.Level_Num;
         SceneManager.LoadScene("Loading");//读取xml知道数据保存在哪一个场景中，Globe.nextScene=目标场景层级
     }
