@@ -245,6 +245,7 @@ public class GhostSprites : MonoBehaviour
         g.GetComponent<SpriteRenderer>().flipX = character.flipX;
         g.GetComponent<SpriteRenderer>().sortingLayerName = character.sortingLayerName;
         g.GetComponent<SpriteRenderer> ().sortingOrder = GhostSpriteSortingOrder;
+        Destroy(g, 1.0f);
 		ghostList.Add (g);
 	}
 	

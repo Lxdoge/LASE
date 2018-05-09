@@ -8,7 +8,8 @@ public class LPlayerCtrl : MonoBehaviour
     [HideInInspector]
     public Rigidbody2D rBody;                 //刚体
     Animator animator;                 //动画
-    public GameObject lSkill;
+    GhostSprites ghost;
+    CapsuleCollider2D capsuleCollider2D;
     /// <summary>
     /// /////////////////////////角色状态变量//////////////////////////////////
     /// </summary>
@@ -67,6 +68,8 @@ public class LPlayerCtrl : MonoBehaviour
         status = Status.normal;
         rBody = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
+        ghost = GetComponentInChildren<GhostSprites>();
+        capsuleCollider2D = GetComponent<CapsuleCollider2D>();
         platSpeed = 0.0f;
         environSpeed = 0.0f;
         lenergy = 1;
@@ -180,8 +183,9 @@ public class LPlayerCtrl : MonoBehaviour
             status = Status.light;
             //去除重力
             rBody.gravityScale = 0;
-            lSkill.GetComponent<SpriteRenderer>().enabled = true;
-            lSkill.GetComponent<LSkillCtrl>().skillon = true;
+            ghost.enabled = true;
+            capsuleCollider2D.size = new Vector2(capsuleCollider2D.size.x, 0.0001f);
+            capsuleCollider2D.offset = new Vector2(capsuleCollider2D.offset.x, 0.11f);
             animator.SetBool("Skill", true);
         }
     }
@@ -197,7 +201,7 @@ public class LPlayerCtrl : MonoBehaviour
             status = Status.death;
             rBody.velocity = Vector3.zero;
             rBody.gravityScale = 0.0f;
-            GetComponent<CapsuleCollider2D>().enabled = false;
+            capsuleCollider2D.enabled = false;
         }
     }
 
@@ -245,9 +249,10 @@ public class LPlayerCtrl : MonoBehaviour
             if (animator.GetBool("SkillON"))
                 return;
             status = Status.normal;
+            ghost.enabled = false;
             animator.SetBool("Skill", false);
-            lSkill.GetComponent<LSkillCtrl>().skillon = false;
-            lSkill.GetComponent<SpriteRenderer>().enabled = false;
+            capsuleCollider2D.size = new Vector2(capsuleCollider2D.size.x, 0.9f);
+            capsuleCollider2D.offset = new Vector2(capsuleCollider2D.offset.x, -0.11f);
             rBody.gravityScale = 3;
         }
     }
@@ -311,7 +316,7 @@ public class LPlayerCtrl : MonoBehaviour
         {
             status = Status.normal;
             rBody.gravityScale = 3.0f;
-            GetComponent<CapsuleCollider2D>().enabled = true;
+            capsuleCollider2D.enabled = true;
         }
     }
 }
