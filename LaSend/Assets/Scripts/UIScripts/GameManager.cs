@@ -161,7 +161,13 @@ public class GameManager : MonoBehaviour
                 pd.SavePoint(0);
                 Save();
                 break;
-            case 2:break;
+            case 2:
+                pd = new PlayerData();
+                pd.PlayerPos(new Vector3(-3.64f, 0.23f, 0));
+                pd.PlayerLevel(2);
+                pd.SavePoint(0);
+                Save();
+                break;
             case 3:break;//loading
         }
         SceneManager.LoadScene("Loading");

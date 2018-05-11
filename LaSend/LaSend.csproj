@@ -324,7 +324,6 @@
     <Compile Include="Assets\Scripts\PlatformScripts\Bullets.cs" />
     <Compile Include="Assets\Scripts\PlatformScripts\ChainPlat.cs" />
     <Compile Include="Assets\Scripts\PlatformScripts\FireGear.cs" />
-    <Compile Include="Assets\Scripts\PlatformScripts\Gear.cs" />
     <Compile Include="Assets\Scripts\PlatformScripts\Organo.cs" />
     <Compile Include="Assets\Scripts\PlatformScripts\PlatLCtrl.cs" />
     <Compile Include="Assets\Scripts\PlatformScripts\PlatNCtrl.cs" />

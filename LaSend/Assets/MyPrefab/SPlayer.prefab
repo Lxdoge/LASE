@@ -100,7 +100,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1163713795116864}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.64, y: -2.041, z: 0}
+  m_LocalPosition: {x: 5.64, y: -1.71, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 4509834573877940}
@@ -231,7 +231,7 @@ Animator:
   m_GameObject: {fileID: 1530890906980648}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fd1ce8fe716f1ce46989d8a953f8c853, type: 2}
+  m_Controller: {fileID: 9100000, guid: 643d4205bb98faf4f80ddf9c9c973019, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -281,8 +281,8 @@ MonoBehaviour:
     m_Bits: 2048
   jump: 0
   SSlider: {fileID: 0}
-  EnergyCost: 0
-  EnergyRecall: 0
+  EnergyCost: 0.5
+  EnergyRecall: 0.2
 --- !u!212 &212726608007715188
 SpriteRenderer:
   m_ObjectHideFlags: 1
