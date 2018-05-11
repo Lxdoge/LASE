@@ -14,7 +14,7 @@ public class SelectLevelUI : MonoBehaviour//, IPointerEnterHandler
     public float[] moveX;
     public HorizontalLayoutGroup butGrounp;
     int currentIndex;
-
+    public int allIndex;
     //public List<Toggle> toggleList = new List<Toggle>();
     //float offsetX;
     //float centerX;
@@ -42,10 +42,25 @@ public class SelectLevelUI : MonoBehaviour//, IPointerEnterHandler
     //    offsetX = groupleft + (currentIndex - 1) * (buttonwidth + spca) + currentIndex / 2;
     //    return offsetX;
     //}
-    public void OnPointer(int sendNum)
+    
+    public void OnPointerUp()
     {
         allInit();
-        currentIndex = sendNum;
+        currentIndex += 1;
+        if (currentIndex >= allIndex)
+        {
+            currentIndex = 0;
+        }
+        //ScrollMove();
+    }
+    public void OnPointerPre()
+    {
+        allInit();
+        currentIndex -= 1;
+        if (currentIndex <= 0)
+        {
+            currentIndex = allIndex;
+        }
         //ScrollMove();
     }
     void ScrollMove()
