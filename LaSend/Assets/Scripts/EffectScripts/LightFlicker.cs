@@ -6,6 +6,7 @@ public class LightFlicker : MonoBehaviour {
     Light Light;
     public float deltaIntensity;
     public float maxIntensity;
+    public float lowIntensity = 0;
     float delta;
     bool Bright;
     public float Timer;
@@ -37,7 +38,7 @@ public class LightFlicker : MonoBehaviour {
         if (Light.intensity >= maxIntensity)
             delta = -1;
         Light.intensity += deltaIntensity * delta * Time.deltaTime;
-        if (Light.intensity == 0)
+        if (Light.intensity <= lowIntensity)
         {
             Bright = false;
             delta = 1;
@@ -51,7 +52,7 @@ public class LightFlicker : MonoBehaviour {
         Timer += Time.deltaTime;
         if(Timer >= maxTime)
         {
-            Light.intensity = 0.01f;
+            Light.intensity = lowIntensity + 0.01f;
             Bright = true;
             Timer = 0;
         }
