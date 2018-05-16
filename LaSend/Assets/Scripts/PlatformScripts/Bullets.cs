@@ -51,6 +51,10 @@ public class Bullets : MonoBehaviour {
         {
             obj.GetComponent<LPlayerCtrl>().death = true;
         }
+        if (obj.tag == "SPlayer")
+        {
+            obj.GetComponent<SPlayerCtrl>().death = true;
+        }
         life = 0;
         animator.SetBool("Boom", true);
         GetComponent<Collider2D>().enabled = false;

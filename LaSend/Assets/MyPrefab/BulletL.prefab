@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 1
-  speed: 10
+  speed: 8
   toL: 1
   targetpos: {x: 0, y: 0, z: 0}
 --- !u!212 &212356928759239354

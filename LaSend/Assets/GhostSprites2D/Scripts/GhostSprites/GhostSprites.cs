@@ -207,13 +207,17 @@ public class GhostSprites : MonoBehaviour
 			temp -= colorAlphaOverride && alphaFluctuationDivisor != 0 ? 
 				alphaFluctuationOverride / alphaFluctuationDivisor : alpha / ghostList.Count;
 			color.a = temp;
-			SpriteRenderer sprite = ghostList[i].GetComponent<SpriteRenderer>();
-			sprite.color = color;
-			int subMat = (int)Mathf.Floor(i / materialDivisor);
-			sprite.material = subMat <= 0 ? ghostMaterial[0] : ghostMaterial[subMat];
-			ghostList[i].transform.position = new Vector3(ghostList[i].transform.position.x,
-			                                              ghostList[i].transform.position.y,
-			                                              i * 0.0001f);
+            if(ghostList[i] != null) {
+                SpriteRenderer sprite = ghostList[i].GetComponent<SpriteRenderer>();
+                sprite.color = color;
+                int subMat = (int)Mathf.Floor(i / materialDivisor);
+                sprite.material = subMat <= 0 ? ghostMaterial[0] : ghostMaterial[subMat];
+                ghostList[i].transform.position = new Vector3(ghostList[i].transform.position.x,
+                                                              ghostList[i].transform.position.y,
+                                                              i * 0.0001f);
+            }
+                
+			
 			
 		}
 		spacingCounter = 0;

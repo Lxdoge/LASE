@@ -197,7 +197,7 @@ public class LPlayerCtrl : MonoBehaviour
         {
             death = false;
             animator.SetBool("Death", true);
-
+            
             status = Status.death;
             rBody.velocity = Vector3.zero;
             rBody.gravityScale = 0.0f;
@@ -244,7 +244,7 @@ public class LPlayerCtrl : MonoBehaviour
     //结束发光状态
     void LightEnd()
     {
-        if (Input.GetButtonDown("Light") || lenergy <= 0)//主动取消或能量耗尽
+        if (Input.GetButtonDown("Light") || lenergy <= 0 )//主动取消或能量耗尽
         {
             if (animator.GetBool("SkillON"))
                 return;
@@ -316,7 +316,11 @@ public class LPlayerCtrl : MonoBehaviour
         {
             status = Status.normal;
             rBody.gravityScale = 3.0f;
+            ghost.enabled = false;
+            animator.SetBool("Skill", false);
             capsuleCollider2D.enabled = true;
+            capsuleCollider2D.size = new Vector2(capsuleCollider2D.size.x, 0.9f);
+            capsuleCollider2D.offset = new Vector2(capsuleCollider2D.offset.x, -0.11f);
         }
     }
 }

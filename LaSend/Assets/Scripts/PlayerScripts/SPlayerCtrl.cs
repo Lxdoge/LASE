@@ -383,9 +383,11 @@ public class SPlayerCtrl : MonoBehaviour {
     {
         if (!animator.GetBool("Death"))
         {
+
+            Sgravity2D = new Vector2(0, -29.43f);
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             status = Status.down;
             GetComponent<CapsuleCollider2D>().enabled = true;
-            GChangeCheck();
         }
     }
 }
