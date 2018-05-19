@@ -8,9 +8,9 @@ public class SelectLevelUI : MonoBehaviour//, IPointerEnterHandler
 {
 
     //public ScrollRect scroll;
-    public ToggleGroup Tgroup;
-    public Toggle []Togs;
-    public Button []Buts;
+    //public ToggleGroup Tgroup;
+    //public Toggle []Togs;
+    public Button[] Buts;
     public float[] moveX;
     public HorizontalLayoutGroup butGrounp;
     int currentIndex;
@@ -20,17 +20,17 @@ public class SelectLevelUI : MonoBehaviour//, IPointerEnterHandler
     //float centerX;
     void Awake()
     {
-        
+
     }
     void Start()
     {
         allInit();
-        Tgroup.allowSwitchOff = true;
-        currentIndex = 0;
+        // Tgroup.allowSwitchOff = true;
+        currentIndex = 1;
     }
     void Update()
     {
-        Togs[currentIndex].isOn = true;
+        //Togs[currentIndex].isOn = true;
         ScrollMove();
     }
     //float countOffset()
@@ -42,38 +42,44 @@ public class SelectLevelUI : MonoBehaviour//, IPointerEnterHandler
     //    offsetX = groupleft + (currentIndex - 1) * (buttonwidth + spca) + currentIndex / 2;
     //    return offsetX;
     //}
-    
-    public void OnPointerUp()
+
+    public void OnPointerNext()
     {
         allInit();
-        currentIndex += 1;
-        if (currentIndex >= allIndex)
+        if (currentIndex == allIndex)
         {
-            currentIndex = 0;
+            currentIndex = -1;
         }
-        //ScrollMove();
+        currentIndex += 1;
+ 
+        ScrollMove();
     }
     public void OnPointerPre()
     {
         allInit();
-        currentIndex -= 1;
-        if (currentIndex <= 0)
+        if (currentIndex == 0)
         {
-            currentIndex = allIndex;
+            currentIndex = allIndex+1;
         }
-        //ScrollMove();
+        currentIndex -= 1;
+        
+        ScrollMove();
     }
     void ScrollMove()
     {
-        Buts[currentIndex].GetComponent<LayoutElement>().DOPreferredSize(new Vector2(360f, 360f), 0.5f, true);
+        //Buts[currentIndex].GetComponent<LayoutElement>().DOPreferredSize(new Vector2(360f, 360f), 0.5f, true);
+        Buts[currentIndex].GetComponent<RectTransform>().DOScaleX(1.3f, 0.5f);
+        Buts[currentIndex].GetComponent<RectTransform>().DOScaleY(1.3f, 0.5f);
         Buts[currentIndex].GetComponent<Image>().DOColor(Color.white, 0.01f);
-        butGrounp.GetComponent<RectTransform>().DOLocalMoveX(moveX[currentIndex],0.1f,true);
-            }
+        butGrounp.GetComponent<RectTransform>().DOLocalMoveX(moveX[currentIndex], 0.1f, true);
+    }
     void allInit()
     {
-        for (int i = 0; i < Togs.Length; i++)
+        for (int i = 0; i < Buts.Length; i++)
         {
-            Buts[i].GetComponent<LayoutElement>().DOPreferredSize(new Vector2(300f, 300f), 0.5f, true);
+
+            Buts[i].GetComponent<RectTransform>().DOScaleX(0.8f, 0.5f);
+            Buts[i].GetComponent<RectTransform>().DOScaleY(0.8f, 0.5f);
             Buts[i].GetComponent<Image>().color = Color.grey;
         }
     }

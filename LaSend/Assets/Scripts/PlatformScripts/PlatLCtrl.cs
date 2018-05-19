@@ -8,6 +8,7 @@ public class PlatLCtrl : MonoBehaviour {
     Status status;
     [HideInInspector]
     public bool Mov;                       //平台移动开关
+    public bool MovS;
     public float moveSpeed;                //平台移动速度
     public float removeSpeed;              //平台返回速度
     public float stopRange;                //平台停止检测范围
@@ -20,6 +21,7 @@ public class PlatLCtrl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Mov = false;
+        MovS = false;
         rBody = GetComponent<Rigidbody2D>();
         status = Status.off;
         stopTimer = stopTime;
@@ -27,10 +29,18 @@ public class PlatLCtrl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Mov && status == Status.off)
+        if (Mov || MovS)
         {
-            status = Status.on;
+            if(status == Status.off)
+                status = Status.on;
+            if (Mov)
+                MoveLCtrl();
+            else if (MovS)
+                MoveSCtrl();
         }
+    }
+    void MoveLCtrl()
+    {
         switch (status)
         {
             case Status.off:
@@ -42,6 +52,7 @@ public class PlatLCtrl : MonoBehaviour {
                 {
                     status = Status.stop;
                     rBody.velocity = new Vector2(0, 0);
+                    transform.position = tPoints[1].position;
                 }
                 break;
             case Status.stop:
@@ -61,14 +72,51 @@ public class PlatLCtrl : MonoBehaviour {
                 {
                     status = Status.off;
                     rBody.velocity = new Vector2(0, 0);
+                    transform.position = tPoints[0].position;
                     Mov = false;
                 }
                 break;
         }
-        
-        
     }
-
+    void MoveSCtrl()
+    {
+        switch (status)
+        {
+            case Status.off:
+                break;
+            case Status.on:
+                //检测是否到达目标点
+                dis = Vector2.Distance(transform.position, tPoints[2].position);
+                if (dis < stopRange)//如果是，更新状态
+                {
+                    status = Status.stop;
+                    rBody.velocity = new Vector2(0, 0);
+                    transform.position = tPoints[2].position;
+                }
+                break;
+            case Status.stop:
+                if (stopTimer >= 0)
+                {
+                    stopTimer -= Time.deltaTime;
+                }
+                else
+                {
+                    stopTimer = stopTime;
+                    status = Status.re;
+                }
+                break;
+            case Status.re:
+                dis = Vector2.Distance(transform.position, tPoints[0].position);
+                if (dis < stopRange)//如果是，更新状态
+                {
+                    status = Status.off;
+                    rBody.velocity = new Vector2(0, 0);
+                    transform.position = tPoints[0].position;
+                    Mov = false;
+                }
+                break;
+        }
+    }
     private void FixedUpdate()
     {
         switch (status)
@@ -76,7 +124,10 @@ public class PlatLCtrl : MonoBehaviour {
             case Status.off:
                 break;
             case Status.on:
-                rBody.velocity = new Vector2(tPoints[1].position.x - transform.position.x, tPoints[1].position.y - transform.position.y).normalized * moveSpeed;
+                if(Mov)
+                    rBody.velocity = new Vector2(tPoints[1].position.x - transform.position.x, tPoints[1].position.y - transform.position.y).normalized * moveSpeed;
+                else if(MovS)
+                    rBody.velocity = new Vector2(tPoints[2].position.x - transform.position.x, tPoints[1].position.y - transform.position.y).normalized * moveSpeed;
                 break;
             case Status.stop:
                 
@@ -95,9 +146,29 @@ public class PlatLCtrl : MonoBehaviour {
         if (collision.transform.tag == "SPlayer")
         {
             if(sc.status == SPlayerCtrl.Status.down || sc.status == SPlayerCtrl.Status.up)
+            {
                 sc.platSpeed = rBody.velocity.x;
+                if (!sc.jump)
+                    sc.rBody.velocity = new Vector2(sc.rBody.velocity.x, rBody.velocity.y);
+            }
             if (sc.status == SPlayerCtrl.Status.left || sc.status == SPlayerCtrl.Status.right)
+            {
                 sc.platSpeed = rBody.velocity.y;
+                if (!sc.jump)
+                    sc.rBody.velocity = new Vector2(rBody.velocity.x,sc.rBody.velocity.y);
+            }
+                
+            //collision.rigidbody.velocity = new Vector2(collision.rigidbody.velocity.x, rBody.velocity.y);
+        }
+        LPlayerCtrl lc = collision.gameObject.GetComponent<LPlayerCtrl>();
+        if (collision.transform.tag == "LPlayer")
+        {
+            if(lc.status == LPlayerCtrl.Status.normal)
+            {
+                lc.platSpeed = rBody.velocity.x;
+                if(!lc.jump)
+                    lc.rBody.velocity = new Vector2(lc.rBody.velocity.x, rBody.velocity.y);
+            }
             //collision.rigidbody.velocity = new Vector2(collision.rigidbody.velocity.x, rBody.velocity.y);
         }
     }
@@ -107,6 +178,10 @@ public class PlatLCtrl : MonoBehaviour {
         if (collision.transform.tag == "SPlayer")
         {
             collision.gameObject.GetComponent<SPlayerCtrl>().platSpeed = 0;
+        }
+        if (collision.transform.tag == "LPlayer")
+        {
+            collision.gameObject.GetComponent<LPlayerCtrl>().platSpeed = 0;
         }
     }
 }

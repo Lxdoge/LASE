@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class SPlayerCtrl : MonoBehaviour {
-    Rigidbody2D rBody;                 //刚体
+    public Rigidbody2D rBody;                 //刚体
     Animator animator;
     /// <summary>
     /// /////////////////////////角色状态变量//////////////////////////////////
@@ -138,7 +138,7 @@ public class SPlayerCtrl : MonoBehaviour {
     //检测并转换重力状态
     void GChangeCheck()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetButtonDown("SGravity"))
         {
             if (senergy < EnergyCost)
                 return;
@@ -212,24 +212,28 @@ public class SPlayerCtrl : MonoBehaviour {
     }
     void JumpGHor(int direction)
     {
-        //如果跳跃刚刚启动，赋予角色初速度
-        if (jumpInitial)
+        if (jump)
         {
-            rBody.velocity = new Vector2(rBody.velocity.x, jumpSpeed * direction);
-            animator.SetBool("Jump", true);
-            jumpInitial = false;
+            //如果跳跃刚刚启动，赋予角色初速度
+            if (jumpInitial)
+            {
+                rBody.velocity = new Vector2(rBody.velocity.x, jumpSpeed * direction);
+                animator.SetBool("Jump", true);
+                jumpInitial = false;
+            }
+            //启动后在跳跃判定时间内，按住跳跃键会持续施加刚体力
+            else if (jumpTimer > 0 && Input.GetButton("SJump"))
+            {
+                jumpTimer -= Time.fixedDeltaTime;
+                rBody.AddForce(Vector2.up * jumpForce * direction);
+            }
+            //判定结束后，结束跳跃操作
+            else
+            {
+                jump = false;
+            }
         }
-        //启动后在跳跃判定时间内，按住跳跃键会持续施加刚体力
-        else if (jumpTimer > 0 && Input.GetButton("SJump"))
-        {
-            jumpTimer -= Time.fixedDeltaTime;
-            rBody.AddForce(Vector2.up * jumpForce * direction);
-        }
-        //判定结束后，结束跳跃操作
-        else
-        {
-            jump = false;
-        }
+        
     }
     void FixupGDown()
     {
@@ -283,23 +287,26 @@ public class SPlayerCtrl : MonoBehaviour {
     }
     void JumpGVer(int direction)
     {
-        //如果跳跃刚刚启动，赋予角色初速度
-        if (jumpInitial)
+        if (jump)
         {
-            rBody.velocity = new Vector2(jumpSpeed * direction, rBody.velocity.y);
-            animator.SetBool("Jump", true);
-            jumpInitial = false;
-        }
-        //启动后在跳跃判定时间内，按住跳跃键会持续施加刚体力
-        else if (jumpTimer > 0 && Input.GetButton("SJump"))
-        {
-            jumpTimer -= Time.fixedDeltaTime;
-            rBody.AddForce(Vector2.right * jumpForce * direction);
-        }
-        //判定结束后，结束跳跃操作
-        else
-        {
-            jump = false;
+            //如果跳跃刚刚启动，赋予角色初速度
+            if (jumpInitial)
+            {
+                rBody.velocity = new Vector2(jumpSpeed * direction, rBody.velocity.y);
+                animator.SetBool("Jump", true);
+                jumpInitial = false;
+            }
+            //启动后在跳跃判定时间内，按住跳跃键会持续施加刚体力
+            else if (jumpTimer > 0 && Input.GetButton("SJump"))
+            {
+                jumpTimer -= Time.fixedDeltaTime;
+                rBody.AddForce(Vector2.right * jumpForce * direction);
+            }
+            //判定结束后，结束跳跃操作
+            else
+            {
+                jump = false;
+            }
         }
     }
     void FixupGRight()

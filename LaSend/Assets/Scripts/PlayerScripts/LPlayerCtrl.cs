@@ -49,7 +49,7 @@ public class LPlayerCtrl : MonoBehaviour
     public Transform groundCheck;      //落地检验物体的空间状态
     public LayerMask isGround;         //地面层
 
-    bool jump;                         //跳跃状态确认
+    public bool jump;                         //跳跃状态确认
     bool grounded;                     //落地检验
     bool jumpInitial;                  //跳跃初次启动确认
     float jumpTimer;                   //跳跃判断剩余时间
@@ -145,24 +145,28 @@ public class LPlayerCtrl : MonoBehaviour
     // 跳跃
     void Jump()
     {
-        //如果跳跃刚刚启动，赋予角色初速度
-        if (jumpInitial)
+        if (jump)
         {
-            rBody.velocity = new Vector2(rBody.velocity.x, jumpSpeed);
-            animator.SetBool("Jump", true);
-            jumpInitial = false;
+            //如果跳跃刚刚启动，赋予角色初速度
+            if (jumpInitial)
+            {
+                rBody.velocity = new Vector2(rBody.velocity.x, rBody.velocity.y + jumpSpeed);
+                animator.SetBool("Jump", true);
+                jumpInitial = false;
+            }
+            //启动后在跳跃判定时间内，按住跳跃键会持续施加刚体力
+            else if (jumpTimer > 0 && Input.GetButton("LJump"))
+            {
+                jumpTimer -= Time.fixedDeltaTime;
+                rBody.AddForce(Vector2.up * jumpForce);
+            }
+            //判定结束后，结束跳跃操作
+            else
+            {
+                jump = false;
+            }
         }
-        //启动后在跳跃判定时间内，按住跳跃键会持续施加刚体力
-        else if (jumpTimer > 0 && Input.GetButton("LJump"))
-        {
-            jumpTimer -= Time.fixedDeltaTime;
-            rBody.AddForce(Vector2.up * jumpForce);
-        }
-        //判定结束后，结束跳跃操作
-        else
-        {
-            jump = false;
-        }
+        
     }
 
     // 落地检验

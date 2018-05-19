@@ -47,11 +47,11 @@ public class Bullets : MonoBehaviour {
 	}
     void OnTriggerEnter2D(Collider2D obj)
     {
-        if(obj.tag == "LPlayer")
+        if (obj.tag == "LPlayer")
         {
             obj.GetComponent<LPlayerCtrl>().death = true;
         }
-        if (obj.tag == "SPlayer")
+        else if (obj.tag == "SPlayer")
         {
             obj.GetComponent<SPlayerCtrl>().death = true;
         }
