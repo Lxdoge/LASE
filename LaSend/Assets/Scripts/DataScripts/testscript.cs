@@ -5,10 +5,16 @@ using UnityEngine;
 public class testscript : MonoBehaviour {
     public GameObject gameManager;
     GameManager manager;
+    public GameObject lPlayer;
+    public GameObject sPlayer;
+    LPlayerCtrl lpCtrl;
+    SPlayerCtrl spCtrl;
 	// Use this for initialization
 	void Start () {
         manager = gameManager.GetComponent<GameManager>();
-	}
+        lpCtrl = lPlayer.GetComponent<LPlayerCtrl>();
+        spCtrl = sPlayer.GetComponent<SPlayerCtrl>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -17,9 +23,10 @@ public class testscript : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "LPlayer")
-            collision.GetComponent<LPlayerCtrl>().death = true;
-        if (collision.tag == "SPlayer")
-            collision.GetComponent<SPlayerCtrl>().death = true;
+        if (collision.tag == "LPlayer" || collision.tag == "SPlayer")
+        {
+            lpCtrl.death = true;
+            spCtrl.death = true;
+        }
     }
 }

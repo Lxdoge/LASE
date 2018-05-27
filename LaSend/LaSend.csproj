@@ -312,7 +312,6 @@
     <Compile Include="Assets\FireBoomBehaviour.cs" />
     <Compile Include="Assets\GhostSprites2D\Scripts\CameraController.cs" />
     <Compile Include="Assets\GhostSprites2D\Scripts\GhostSprites\GhostSprites.cs" />
-    <Compile Include="Assets\NormalGearCtrl.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\CameraPoint.cs" />
     <Compile Include="Assets\Scripts\DataScripts\Collection.cs" />
     <Compile Include="Assets\Scripts\DataScripts\PlayerData.cs" />
@@ -322,15 +321,16 @@
     <Compile Include="Assets\Scripts\DataScripts\XmlManager.cs" />
     <Compile Include="Assets\Scripts\EffectScripts\EyeCtrl.cs" />
     <Compile Include="Assets\Scripts\EffectScripts\LightFlicker.cs" />
-    <Compile Include="Assets\Scripts\PlatformScripts\Bullets.cs" />
+    <Compile Include="Assets\Scripts\GearScripts\Bullets.cs" />
+    <Compile Include="Assets\Scripts\GearScripts\FireGear.cs" />
+    <Compile Include="Assets\Scripts\GearScripts\NormalBullet.cs" />
+    <Compile Include="Assets\Scripts\GearScripts\NormalGearCtrl.cs" />
     <Compile Include="Assets\Scripts\PlatformScripts\ChainPlat.cs" />
-    <Compile Include="Assets\Scripts\PlatformScripts\FireGear.cs" />
     <Compile Include="Assets\Scripts\PlatformScripts\Organo.cs" />
     <Compile Include="Assets\Scripts\PlatformScripts\PlatLCtrl.cs" />
     <Compile Include="Assets\Scripts\PlatformScripts\PlatNCtrl.cs" />
     <Compile Include="Assets\Scripts\PlatformScripts\PlatSSwitch.cs" />
     <Compile Include="Assets\Scripts\PlatformScripts\PlatSwitch.cs" />
-    <Compile Include="Assets\Scripts\PlatformScripts\PosCtrl.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\CollectionCtrl.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\Lmark.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\LPlayerCtrl.cs" />
@@ -338,6 +338,7 @@
     <Compile Include="Assets\Scripts\PlayerScripts\PlayerCtrl.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\SPlayerCtrl.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\test.cs" />
+    <Compile Include="Assets\Scripts\PosCtrl.cs" />
     <Compile Include="Assets\Scripts\UIScripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\UIScripts\GameStart.cs" />
     <Compile Include="Assets\Scripts\UIScripts\Item.cs" />
