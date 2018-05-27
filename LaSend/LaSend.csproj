@@ -312,6 +312,7 @@
     <Compile Include="Assets\FireBoomBehaviour.cs" />
     <Compile Include="Assets\GhostSprites2D\Scripts\CameraController.cs" />
     <Compile Include="Assets\GhostSprites2D\Scripts\GhostSprites\GhostSprites.cs" />
+    <Compile Include="Assets\NormalGearCtrl.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\CameraPoint.cs" />
     <Compile Include="Assets\Scripts\DataScripts\Collection.cs" />
     <Compile Include="Assets\Scripts\DataScripts\PlayerData.cs" />

@@ -4,8 +4,6 @@ using UnityEngine;
 using DG.Tweening;
 public class FireGear : MonoBehaviour
 {
-
-
     [HideInInspector]
     public bool lopen = false;
     [HideInInspector]
