@@ -9,7 +9,8 @@ public class LPlayerCtrl : MonoBehaviour
     public Rigidbody2D rBody;                 //刚体
     Animator animator;                 //动画
     GhostSprites ghost;
-    CapsuleCollider2D capsuleCollider2D;
+    PolygonCollider2D polygonCollider2D;
+    CircleCollider2D circleCollider2D;
     /// <summary>
     /// /////////////////////////角色状态变量//////////////////////////////////
     /// </summary>
@@ -69,7 +70,8 @@ public class LPlayerCtrl : MonoBehaviour
         rBody = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         ghost = GetComponentInChildren<GhostSprites>();
-        capsuleCollider2D = GetComponent<CapsuleCollider2D>();
+        polygonCollider2D = GetComponent<PolygonCollider2D>();
+        circleCollider2D = GetComponent<CircleCollider2D>();
         platSpeed = 0.0f;
         environSpeed = 0.0f;
         lenergy = 1;
@@ -131,7 +133,7 @@ public class LPlayerCtrl : MonoBehaviour
     // 检测并初始化跳跃
     void JumpCheck()
     {
-        if (grounded && Input.GetButtonDown("LJump"))
+        if (grounded && Input.GetKeyDown(KeyCode.UpArrow))
         {
             //确认跳跃状态
             jump = true;
@@ -155,7 +157,7 @@ public class LPlayerCtrl : MonoBehaviour
                 jumpInitial = false;
             }
             //启动后在跳跃判定时间内，按住跳跃键会持续施加刚体力
-            else if (jumpTimer > 0 && Input.GetButton("LJump"))
+            else if (jumpTimer > 0 && Input.GetKey(KeyCode.UpArrow))
             {
                 jumpTimer -= Time.fixedDeltaTime;
                 rBody.AddForce(Vector2.up * jumpForce);
@@ -172,7 +174,7 @@ public class LPlayerCtrl : MonoBehaviour
     // 落地检验
     void GroundCheck()
     {
-        grounded = Physics2D.OverlapPoint(groundCheck.position, isGround);
+        grounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, isGround);
         animator.SetBool("Ground", grounded);
     }
 
@@ -188,8 +190,8 @@ public class LPlayerCtrl : MonoBehaviour
             //去除重力
             rBody.gravityScale = 0;
             ghost.enabled = true;
-            capsuleCollider2D.size = new Vector2(capsuleCollider2D.size.x, 0.0001f);
-            capsuleCollider2D.offset = new Vector2(capsuleCollider2D.offset.x, 0.11f);
+            polygonCollider2D.enabled = false;
+            circleCollider2D.enabled = true;
             animator.SetBool("Skill", true);
         }
     }
@@ -205,7 +207,7 @@ public class LPlayerCtrl : MonoBehaviour
             status = Status.death;
             rBody.velocity = Vector3.zero;
             rBody.gravityScale = 0.0f;
-            capsuleCollider2D.enabled = false;
+            polygonCollider2D.enabled = false;
         }
     }
 
@@ -255,8 +257,8 @@ public class LPlayerCtrl : MonoBehaviour
             status = Status.normal;
             ghost.enabled = false;
             animator.SetBool("Skill", false);
-            capsuleCollider2D.size = new Vector2(capsuleCollider2D.size.x, 0.9f);
-            capsuleCollider2D.offset = new Vector2(capsuleCollider2D.offset.x, -0.11f);
+            polygonCollider2D.enabled = true;
+            circleCollider2D.enabled = false;
             rBody.gravityScale = 3;
         }
     }
@@ -322,9 +324,8 @@ public class LPlayerCtrl : MonoBehaviour
             rBody.gravityScale = 3.0f;
             ghost.enabled = false;
             animator.SetBool("Skill", false);
-            capsuleCollider2D.enabled = true;
-            capsuleCollider2D.size = new Vector2(capsuleCollider2D.size.x, 0.9f);
-            capsuleCollider2D.offset = new Vector2(capsuleCollider2D.offset.x, -0.11f);
+            polygonCollider2D.enabled = true;
+            circleCollider2D.enabled = false;
         }
     }
 }

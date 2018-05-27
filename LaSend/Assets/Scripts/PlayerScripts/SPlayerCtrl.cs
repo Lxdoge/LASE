@@ -171,7 +171,7 @@ public class SPlayerCtrl : MonoBehaviour {
     // 检测并初始化跳跃
     void JumpCheck()
     {
-        if (grounded && Input.GetButtonDown("SJump"))
+        if (grounded && (Input.GetKeyDown(KeyCode.W)||(Input.GetButtonDown("SJump"))))
         {
             if (animator.GetBool("Attack"))
                 return;
@@ -195,7 +195,7 @@ public class SPlayerCtrl : MonoBehaviour {
             status = Status.death;
             rBody.velocity = Vector3.zero;
             Sgravity2D = Vector2.zero;
-            GetComponent<CapsuleCollider2D>().enabled = false;
+            GetComponent<PolygonCollider2D>().enabled = false;
         }
     }
     //Down和Up状态的移动
@@ -222,7 +222,7 @@ public class SPlayerCtrl : MonoBehaviour {
                 jumpInitial = false;
             }
             //启动后在跳跃判定时间内，按住跳跃键会持续施加刚体力
-            else if (jumpTimer > 0 && Input.GetButton("SJump"))
+            else if (jumpTimer > 0 && (Input.GetKey(KeyCode.W) || (Input.GetButton("SJump"))))
             {
                 jumpTimer -= Time.fixedDeltaTime;
                 rBody.AddForce(Vector2.up * jumpForce * direction);
@@ -297,7 +297,7 @@ public class SPlayerCtrl : MonoBehaviour {
                 jumpInitial = false;
             }
             //启动后在跳跃判定时间内，按住跳跃键会持续施加刚体力
-            else if (jumpTimer > 0 && Input.GetButton("SJump"))
+            else if (jumpTimer > 0 && (Input.GetKey(KeyCode.W) || (Input.GetButton("SJump"))))
             {
                 jumpTimer -= Time.fixedDeltaTime;
                 rBody.AddForce(Vector2.right * jumpForce * direction);
@@ -349,8 +349,7 @@ public class SPlayerCtrl : MonoBehaviour {
     // 落地检验
     void GroundCheck()
     {
-        grounded = Physics2D.OverlapPoint(groundCheck.position, isGround);
-
+        grounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, isGround);
         animator.SetBool("Ground", grounded);
     }
     //转向
@@ -394,7 +393,7 @@ public class SPlayerCtrl : MonoBehaviour {
             Sgravity2D = new Vector2(0, -29.43f);
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             status = Status.down;
-            GetComponent<CapsuleCollider2D>().enabled = true;
+            GetComponent<PolygonCollider2D>().enabled = true;
         }
     }
 }
