@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlatLCtrl : MonoBehaviour {
     [HideInInspector]
     public enum Status { on, off, stop, re };//平台状态
-    Status status;
+    public Status status;
     [HideInInspector]
     public bool Mov;                       //平台移动开关
     public bool MovS;
@@ -112,7 +112,7 @@ public class PlatLCtrl : MonoBehaviour {
                     status = Status.off;
                     rBody.velocity = new Vector2(0, 0);
                     transform.position = tPoints[0].position;
-                    Mov = false;
+                    MovS = false;
                 }
                 break;
         }
@@ -127,7 +127,7 @@ public class PlatLCtrl : MonoBehaviour {
                 if(Mov)
                     rBody.velocity = new Vector2(tPoints[1].position.x - transform.position.x, tPoints[1].position.y - transform.position.y).normalized * moveSpeed;
                 else if(MovS)
-                    rBody.velocity = new Vector2(tPoints[2].position.x - transform.position.x, tPoints[1].position.y - transform.position.y).normalized * moveSpeed;
+                    rBody.velocity = new Vector2(tPoints[2].position.x - transform.position.x, tPoints[2].position.y - transform.position.y).normalized * moveSpeed;
                 break;
             case Status.stop:
                 

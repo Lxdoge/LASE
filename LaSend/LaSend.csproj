@@ -314,6 +314,7 @@
     <Compile Include="Assets\GhostSprites2D\Scripts\GhostSprites\GhostSprites.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\CameraPoint.cs" />
     <Compile Include="Assets\Scripts\DataScripts\Collection.cs" />
+    <Compile Include="Assets\Scripts\DataScripts\Complete.cs" />
     <Compile Include="Assets\Scripts\DataScripts\PlayerData.cs" />
     <Compile Include="Assets\Scripts\DataScripts\SavePoint.cs" />
     <Compile Include="Assets\Scripts\DataScripts\SavePointCtrl.cs" />

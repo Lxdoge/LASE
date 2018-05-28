@@ -15,7 +15,7 @@ public class PlatSwitch : MonoBehaviour {
 	}
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.tag == "LPlayer")
+        if (collision.transform.tag == "LPlayer" && plat.GetComponent<PlatLCtrl>().status == PlatLCtrl.Status.off)
         {
             plat.GetComponent<PlatLCtrl>().Mov = true;
         }
