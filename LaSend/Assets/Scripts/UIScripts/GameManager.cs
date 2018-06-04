@@ -22,7 +22,9 @@ public class GameManager : MonoBehaviour
     public bool gameclear;               //通关
     [HideInInspector]
     public bool gameover;                //失败
-    
+    [HideInInspector]
+    public bool boss;                //Boss
+
     //private int maxlevel = 100;
 
     GameObject panelpause;
@@ -33,14 +35,16 @@ public class GameManager : MonoBehaviour
         //pd = new PlayerData();
         //Save();
         Load();
+
+        pause = false;
+        gameclear = false;
+        gameover = false;
+        boss = false;
     }
     void Start()
     {
         //pd = new PlayerData();
         //Save();
-        pause = false;
-        gameclear = false;
-        gameover = false;
         //thiscanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 
         LoadData();
@@ -51,6 +55,10 @@ public class GameManager : MonoBehaviour
     {
         if (gameover)
         {
+            if (boss)
+            {
+                return;
+            }
             gameover = false;
             ReFromSavePoint();
         }

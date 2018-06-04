@@ -3,47 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PosCtrl : MonoBehaviour {
-    public float Range=10;
+    public float Range;
     public GameObject PL;
     public GameObject PS;
-    bool is_open = false;
-    BoxCollider2D box;
-    FireGear fire;
-    
+    bool is_open = true;
+    public GameObject Gear;
+    Transform gearTransform;
+    Transform LT, ST;
+
     float distance;
-    float a, b;
+    float Dl, Ds;
     // Use this for initialization
     void Start()
     {
-        box = GetComponent<BoxCollider2D>();
-        fire = GetComponent<FireGear>();
+        LT = PL.transform;
+        ST = PS.transform;
+        gearTransform = Gear.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        a = Vector3.Distance(transform.position, PL.transform.position);
-        b = Vector3.Distance(transform.position, PS.transform.position);
-        distance = Mathf.Min(a, b);
-
-        if (is_open)
+        Dl = Vector2.Distance(LT.position, gearTransform.position);
+        Ds = Vector2.Distance(ST.position, gearTransform.position);
+        distance = Dl > Ds ? Dl : Ds;
+        if(distance > Range && is_open)
         {
-            if(distance > Range)
-            {
-                is_open = false;
-                fire.enabled = false;
-                box.enabled = false;
-            }
+            is_open = false;
+            Gear.SetActive(false);
         }
-        else
+        if(distance < Range && !is_open)
         {
-            if (distance <= Range)
-            {
-                is_open = true;
-                fire.enabled = true;
-                box.enabled = true;
-            }
+            is_open = true;
+            Gear.SetActive(true);
         }
-
     }
 }
