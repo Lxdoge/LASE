@@ -8,9 +8,12 @@ public class Lmark : MonoBehaviour {
     [HideInInspector]
     public Status status;              //角色当前状态
     public GameObject lPlayer;
+    SpriteRenderer spriteR;
+    public Sprite[] spriteMark = new Sprite[4];
     float disX, disY;
     void Start () {
         status = Status.right;
+        spriteR = GetComponentInChildren<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
@@ -20,16 +23,29 @@ public class Lmark : MonoBehaviour {
         if (disY - disX > 0)
         {
             if (disX + disY >= 0)
+            {
                 status = Status.down;
+                spriteR.sprite = spriteMark[3];
+            }
             else
+            {
                 status = Status.right;
+                spriteR.sprite = spriteMark[2];
+            }
+                
         }
         else
         {
             if (disX + disY > 0)
+            {
                 status = Status.left;
+                spriteR.sprite = spriteMark[1];
+            }
             else
+            {
                 status = Status.up;
+                spriteR.sprite = spriteMark[0];
+            }
         }
         
 	}

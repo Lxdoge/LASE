@@ -35,8 +35,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4746494716444382}
   - component: {fileID: 50871118757483736}
-  - component: {fileID: 70083827448957498}
   - component: {fileID: 114723338147280880}
+  - component: {fileID: 58233180188183530}
+  - component: {fileID: 60251349192999014}
   m_Layer: 14
   m_Name: LPlayer
   m_TagString: LPlayer
@@ -70,7 +71,7 @@ GameObject:
   - component: {fileID: 4177862413799098}
   - component: {fileID: 212890255801983858}
   - component: {fileID: 95048350921244246}
-  - component: {fileID: 114034078643525644}
+  - component: {fileID: 114823339424032398}
   m_Layer: 14
   m_Name: LSprite
   m_TagString: Untagged
@@ -124,7 +125,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1501464514542192}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.64, y: -1.71, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4177862413799098}
@@ -153,21 +154,54 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!70 &70083827448957498
-CapsuleCollider2D:
+--- !u!58 &58233180188183530
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1501464514542192}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 66832603cff2ce84c8cea23eed669b03, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.14066643}
+  serializedVersion: 2
+  m_Radius: 0.15
+--- !u!60 &60251349192999014
+PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1501464514542192}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 66832603cff2ce84c8cea23eed669b03, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.021543205, y: -0.109012306}
-  m_Size: {x: 0.4569136, y: 0.8955606}
-  m_Direction: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.012216449, y: 0.34844893}
+      - {x: -0.20177275, y: 0.30087265}
+      - {x: -0.24763338, y: 0.16015963}
+      - {x: -0.18871024, y: -0.3814366}
+      - {x: -0.10167234, y: -0.54954433}
+      - {x: 0.093787745, y: -0.5496398}
+      - {x: 0.18871021, y: -0.36922002}
+      - {x: 0.20418797, y: 0.17653213}
+      - {x: 0.16512299, y: 0.30494493}
 --- !u!95 &95048350921244246
 Animator:
   serializedVersion: 3
@@ -221,28 +255,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114034078643525644
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1841564619000632}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2251b651ddeed2489815f26b026e905, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trailSize: 10
-  spacing: 0
-  color: {r: 1, g: 1, b: 1, a: 0.39215687}
-  ghostMaterial:
-  - {fileID: 2100000, guid: bc06b77f8dc7e704489c1f8b4743708c, type: 2}
-  - {fileID: 2100000, guid: 54a25083388dcac4986eb68330795931, type: 2}
-  ghostSpriteSortingOrder: 0
-  renderOnMotion: 0
-  colorAlphaOverride: 0
-  alphaFluctuationOverride: 1
-  alphaFluctuationDivisor: 0
 --- !u!114 &114723338147280880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -275,6 +287,26 @@ MonoBehaviour:
   LSlider: {fileID: 0}
   EnergySpeed: 0.2
   EnergyRecall: 0.5
+--- !u!114 &114823339424032398
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1841564619000632}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2251b651ddeed2489815f26b026e905, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trailSize: 10
+  spacing: 0
+  color: {r: 1, g: 1, b: 1, a: 0.39215687}
+  ghostMaterial: []
+  ghostSpriteSortingOrder: 0
+  renderOnMotion: 0
+  colorAlphaOverride: 0
+  alphaFluctuationOverride: 0
+  alphaFluctuationDivisor: 0
 --- !u!212 &212890255801983858
 SpriteRenderer:
   m_ObjectHideFlags: 1
