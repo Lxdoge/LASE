@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BossTrigger : MonoBehaviour {
-
+    
     public GameObject gameManager;
     GameManager Manager;
-    public GameObject mCamera;
-    public GameObject cameraPoint;
-    public GameObject StateMachine;
+    public GameObject mCamera;          //照相机
+    public GameObject cameraPoint;      //相机定位
+    public GameObject StateMachine;     //Boss状态机
+    BossStateMachine BSM;
     public GameObject DistanceMachine;
     DistanceCtrl disCtrl;
     public GameObject lPlayer;
@@ -22,6 +23,7 @@ public class BossTrigger : MonoBehaviour {
     void Start () {
         Manager = gameManager.GetComponent<GameManager>();
         disCtrl = DistanceMachine.GetComponent<DistanceCtrl>();
+        BSM = StateMachine.GetComponent<BossStateMachine>();
 	}
 	
 	// Update is called once per frame
@@ -35,6 +37,7 @@ public class BossTrigger : MonoBehaviour {
             cameraPoint.GetComponent<CameraPoint>().enabled = true;
             disCtrl.Xmax = 19.5f;
             disCtrl.Ymax = 11.5f;
+            BSM.status = BossStateMachine.Status.NotActive;
         }
 	}
 
@@ -50,6 +53,7 @@ public class BossTrigger : MonoBehaviour {
         cameraPoint.transform.position = StateMachine.transform.position;
         disCtrl.Xmax = 40;
         disCtrl.Ymax = 25;
+        BSM.status = BossStateMachine.Status.Skill_3;
     }
 }
 
