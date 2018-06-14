@@ -12,9 +12,9 @@ public class LoadScene : MonoBehaviour
     public Slider loadingSlider;
 
     public Text loadingText;
-    public RawImage loadingImage;
+    //public RawImage loadingImage;
     public float loadingSpeed = 1;
-    public float rotspeed = 40;
+    //public float rotspeed = 40;
     private float targetValue;
 
     private AsyncOperation operation;
@@ -42,7 +42,7 @@ public class LoadScene : MonoBehaviour
     // Update is called once per frame  
     void Update()
     {
-        loadingImage.transform.GetComponent<RectTransform>().Rotate(0, 0, rotspeed * Time.deltaTime);
+        //loadingImage.transform.GetComponent<RectTransform>().Rotate(0, 0, rotspeed * Time.deltaTime);
         targetValue = operation.progress;
 
         if (operation.progress >= 0.9f)
