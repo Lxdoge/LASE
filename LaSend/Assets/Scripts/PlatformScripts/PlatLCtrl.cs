@@ -148,13 +148,13 @@ public class PlatLCtrl : MonoBehaviour {
             if(sc.status == SPlayerCtrl.Status.down || sc.status == SPlayerCtrl.Status.up)
             {
                 sc.platSpeed = rBody.velocity.x;
-                if (!sc.jump)
+                if (!sc.jump && sc.grounded)
                     sc.rBody.velocity = new Vector2(sc.rBody.velocity.x, rBody.velocity.y);
             }
             if (sc.status == SPlayerCtrl.Status.left || sc.status == SPlayerCtrl.Status.right)
             {
                 sc.platSpeed = rBody.velocity.y;
-                if (!sc.jump)
+                if (!sc.jump && sc.grounded)
                     sc.rBody.velocity = new Vector2(rBody.velocity.x,sc.rBody.velocity.y);
             }
                 
@@ -166,7 +166,7 @@ public class PlatLCtrl : MonoBehaviour {
             if(lc.status == LPlayerCtrl.Status.normal)
             {
                 lc.platSpeed = rBody.velocity.x;
-                if(!lc.jump)
+                if (!lc.jump && lc.grounded)
                     lc.rBody.velocity = new Vector2(lc.rBody.velocity.x, rBody.velocity.y);
             }
             //collision.rigidbody.velocity = new Vector2(collision.rigidbody.velocity.x, rBody.velocity.y);

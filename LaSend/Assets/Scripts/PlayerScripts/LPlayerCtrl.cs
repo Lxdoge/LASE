@@ -51,7 +51,7 @@ public class LPlayerCtrl : MonoBehaviour
     public LayerMask isGround;         //地面层
 
     public bool jump;                         //跳跃状态确认
-    bool grounded;                     //落地检验
+    public bool grounded;                     //落地检验
     bool jumpInitial;                  //跳跃初次启动确认
     float jumpTimer;                   //跳跃判断剩余时间
     /// <summary>
@@ -110,7 +110,7 @@ public class LPlayerCtrl : MonoBehaviour
     }
 
     // 角色水平移动，单独写为了方便做过场（如果有的话）
-    public void Move(int direction)
+    public void Move(float direction)
     {
         //更新外界对角色水平移动速度限制
         hSpeed = platSpeed + environSpeed;
@@ -133,7 +133,8 @@ public class LPlayerCtrl : MonoBehaviour
     // 检测并初始化跳跃
     void JumpCheck()
     {
-        if (grounded && Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetButtonDown("LJump"))
+        if (grounded && Input.GetButtonDown("LJump"))
         {
             //确认跳跃状态
             jump = true;
@@ -157,7 +158,7 @@ public class LPlayerCtrl : MonoBehaviour
                 jumpInitial = false;
             }
             //启动后在跳跃判定时间内，按住跳跃键会持续施加刚体力
-            else if (jumpTimer > 0 && Input.GetKey(KeyCode.UpArrow))
+            else if (jumpTimer > 0 && Input.GetButton("LJump"))
             {
                 jumpTimer -= Time.fixedDeltaTime;
                 rBody.AddForce(Vector2.up * jumpForce);
@@ -174,7 +175,7 @@ public class LPlayerCtrl : MonoBehaviour
     // 落地检验
     void GroundCheck()
     {
-        grounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, isGround);
+        grounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, isGround);
         animator.SetBool("Ground", grounded);
     }
 
@@ -220,7 +221,6 @@ public class LPlayerCtrl : MonoBehaviour
             Flip();
         else if (hor < 0 && facingRight)
             Flip();
-        GroundCheck();
         if (grounded && animator.GetBool("Jump"))
         {
             animator.SetBool("Jump", false);
@@ -232,16 +232,16 @@ public class LPlayerCtrl : MonoBehaviour
         DeathCheck();
         animator.SetFloat("Hor", Mathf.Abs(hor));
         LSlider.value = lenergy;
+        GroundCheck();
     }
     void NormalFixedCtrl()
     {
         //水平移动（direction==0无限制时，以下写法影响惯性）
-        if (hor == 1)
-            Move(1);
-        else if (hor == -1)
-            Move(-1);
-        else
-            Move(0);
+        if (Mathf.Abs(hor) >= 0.5)
+        {
+            Move(hor);
+        }
+        Move(hor);
         //跳跃
         if (jump)
             Jump();
@@ -270,13 +270,13 @@ public class LPlayerCtrl : MonoBehaviour
         if (directionX * rBody.velocity.x < lightMoveSpeed)
             rBody.AddForce(Vector2.right * directionX * lightMoveForce);
         //否则，限制移动速度
-        if (directionX * rBody.velocity.x > lightMoveSpeed)
+        if (directionX * rBody.velocity.x > lightMoveSpeed || directionX == 0)
             rBody.velocity = new Vector2(directionX * lightMoveSpeed, rBody.velocity.y);
         //如果当前速度没有达到角色当前位置竖直输入方向上的速度限制，加速
         if (directionY * rBody.velocity.y < lightMoveSpeed)
             rBody.AddForce(Vector2.up * directionY * lightMoveForce);
         //否则，限制移动速度
-        if (directionY * rBody.velocity.y > lightMoveSpeed)
+        if (directionY * rBody.velocity.y > lightMoveSpeed || directionY == 0)
             rBody.velocity = new Vector2(rBody.velocity.x, directionY * lightMoveSpeed);
 
         if (animator.GetBool("SkillON"))
@@ -299,7 +299,14 @@ public class LPlayerCtrl : MonoBehaviour
     }
     void LightFixedCtrl()
     {
-        LightMove(hor, ver);
+        float Hor, Ver;
+        if (Mathf.Abs(hor) >= 0.5f)
+            Hor = hor;
+        else Hor = 0;
+        if (Mathf.Abs(ver) >= 0.5f)
+            Ver = ver;
+        else Ver = 0;
+        LightMove(Hor, Ver);
     }
 
     //能量控制函数

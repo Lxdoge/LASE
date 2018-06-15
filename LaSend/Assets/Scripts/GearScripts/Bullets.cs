@@ -11,17 +11,20 @@ public class Bullets : MonoBehaviour {
     public Vector3 targetpos;
     Animator animator;
     Rigidbody2D rBody;
+    GameObject lPlayer;
+    GameObject sPlayer;
     // Use this for initialization
-    float distance;
     void Start () {
         animator = GetComponent<Animator>();
-        if(toL)
+        lPlayer = GameObject.Find("LPlayer");
+        sPlayer = GameObject.Find("SPlayer");
+        if (toL)
         {
-            targetpos = GameObject.Find("LPlayer").transform.position;
+            targetpos = lPlayer.transform.position;
         }
         if (!toL)
         {
-            targetpos = GameObject.Find("SPlayer").transform.position;
+            targetpos = sPlayer.transform.position;
         }
         if (targetpos.y - transform.position.y >= 0)
             transform.Rotate(new Vector3(0, 0, Vector3.Angle(new Vector3(targetpos.x - transform.position.x, targetpos.y - transform.position.y), Vector3.right)));
@@ -52,12 +55,12 @@ public class Bullets : MonoBehaviour {
         if (obj.tag == "LPlayer" && toL)
         {
             obj.GetComponent<LPlayerCtrl>().death = true;
-            obj.GetComponent<SPlayerCtrl>().death = true;
+            sPlayer.GetComponent<SPlayerCtrl>().death = true;
         }
         else if (obj.tag == "SPlayer" && !toL)
         {
-            obj.GetComponent<LPlayerCtrl>().death = true;
             obj.GetComponent<SPlayerCtrl>().death = true;
+            lPlayer.GetComponent<LPlayerCtrl>().death = true;
         }
         life = 0;
         animator.SetBool("Boom", true);

@@ -252,6 +252,7 @@ MonoBehaviour:
   pause: 0
   gameclear: 0
   gameover: 0
+  boss: 0
 --- !u!114 &58356522
 MonoBehaviour:
   m_ObjectHideFlags: 0

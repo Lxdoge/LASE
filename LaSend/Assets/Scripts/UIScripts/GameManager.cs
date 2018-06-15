@@ -19,8 +19,6 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool pause;                   //暂停
     [HideInInspector]
-    public bool gameclear;               //通关
-    [HideInInspector]
     public bool gameover;                //失败
     [HideInInspector]
     public bool boss;                //Boss
@@ -37,7 +35,6 @@ public class GameManager : MonoBehaviour
         Load();
 
         pause = false;
-        gameclear = false;
         gameover = false;
         boss = false;
     }

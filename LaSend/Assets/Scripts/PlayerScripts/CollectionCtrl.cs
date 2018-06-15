@@ -9,7 +9,6 @@ public class CollectionCtrl : MonoBehaviour {
 
     public GameObject gameManager;
     GameManager manager;
-    SpriteRenderer spriteRenderer;
     CircleCollider2D Box;
     bool isCollected;
     public int NumofCollection;       //在关卡内的编号，外部定义
@@ -20,7 +19,6 @@ public class CollectionCtrl : MonoBehaviour {
     // Use this for initialization
     void Start () {
         manager = gameManager.GetComponent<GameManager>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         Box = GetComponent<CircleCollider2D>();
         switch (Level_Num)
         {
@@ -35,6 +33,18 @@ public class CollectionCtrl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (manager.gameover)
+        {
+            targetImage.DOColor(new Color(1,1,1,0), fadetime);
+            switch (Level_Num)
+            {
+                case 1:
+                    isCollected = manager.pd.collection_1[NumofCollection]._isCollected;
+                    break;
+                case 2: break;
+                case 3: break;
+            }
+        }
         if (isCollected)//已收集状态
         {
             //关于UI的更新写在这里！
@@ -44,9 +54,10 @@ public class CollectionCtrl : MonoBehaviour {
                 par.Play();
             }
             //关闭显示等，变成空物体，避免重复检测
-            spriteRenderer.enabled = false;
-            Box.enabled = false;
-            enabled = false;
+            //spriteRenderer.enabled = false;
+            //Box.enabled = false;
+            //enabled = false;
+            gameObject.SetActive(false);
         }
 	}
     void OnTriggerEnter2D(Collider2D obj)

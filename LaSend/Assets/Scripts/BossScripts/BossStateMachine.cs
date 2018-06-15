@@ -124,7 +124,7 @@ public class BossStateMachine : MonoBehaviour {
     //启动技能2所有机关
     void OpenKill_2()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 2; i++)
         {
             Killer_2[i].SetActive(true);
         }
@@ -132,7 +132,7 @@ public class BossStateMachine : MonoBehaviour {
     //关闭技能2所有机关
     void CloseKill_2()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 2; i++)
         {
             Killer_2[i].SetActive(false);
         }
@@ -140,7 +140,7 @@ public class BossStateMachine : MonoBehaviour {
     //启动技能3所有机关
     void OpenKill_3()
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 16; i++)
         {
             Killer_3[i].SetActive(true);
         }
@@ -148,7 +148,7 @@ public class BossStateMachine : MonoBehaviour {
     //关闭技能3所有机关
     void CloseKill_3()
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 16; i++)
         {
             Killer_3[i].SetActive(false);
         }

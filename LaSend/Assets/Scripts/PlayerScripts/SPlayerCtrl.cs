@@ -48,7 +48,7 @@ public class SPlayerCtrl : MonoBehaviour {
     /// ////////////////////
     /// </summary>
     bool jump;                         //跳跃状态确认
-    bool grounded;                     //落地检验
+    public bool grounded;                     //落地检验
     bool jumpInitial;                  //跳跃初次启动确认
     float jumpTimer;                   //跳跃判断剩余时间
     /// <summary>
@@ -81,37 +81,57 @@ public class SPlayerCtrl : MonoBehaviour {
         }
         if (animator.GetBool("Attack"))
             return;
-        hor = Input.GetAxis("SHorizontal");
-        //根据移动方向翻转角色朝向
 
-        SSlider.value = senergy;
-        ResumeEnergy();
-        if (hor > 0 && !facingRight)
-            Flip();
-        else if (hor < 0 && facingRight)
-            Flip();
-        GroundCheck();
-        AttackCheck();
+        hor = Input.GetAxis("SHorizontal");
+        ver = Input.GetAxis("SVertical");
         switch (status)
         {
             case Status.down:
                 animator.SetFloat("SpeedY", rBody.velocity.y);
+                animator.SetFloat("Hor", Mathf.Abs(hor));
+                if (hor > 0 && !facingRight)
+                    Flip();
+                else if (hor < 0 && facingRight)
+                    Flip();
                 break;
             case Status.up:
                 animator.SetFloat("SpeedY", -rBody.velocity.y);
+                animator.SetFloat("Hor", Mathf.Abs(hor));
+                if (hor < 0 && !facingRight)
+                    Flip();
+                else if (hor > 0 && facingRight)
+                    Flip();
                 break;
             case Status.right:
                 animator.SetFloat("SpeedY", -rBody.velocity.x);
+                animator.SetFloat("Hor", Mathf.Abs(ver));
+                if (ver < 0 && !facingRight)
+                    Flip();
+                else if (ver > 0 && facingRight)
+                    Flip();
                 break;
             case Status.left:
                 animator.SetFloat("SpeedY", rBody.velocity.x);
+                animator.SetFloat("Hor", Mathf.Abs(ver));
+                if (ver > 0 && !facingRight)
+                    Flip();
+                else if (ver < 0 && facingRight)
+                    Flip();
                 break;
         }
+        
+        //根据移动方向翻转角色朝向ccc
+
+        SSlider.value = senergy;
+        ResumeEnergy();
+        
+
+        AttackCheck();
+       
         JumpCheck();
         GChangeCheck();
         DeathCheck();
-
-        animator.SetFloat("Hor", Mathf.Abs(hor));
+        GroundCheck();
     }
 
     //
@@ -171,7 +191,7 @@ public class SPlayerCtrl : MonoBehaviour {
     // 检测并初始化跳跃
     void JumpCheck()
     {
-        if (grounded && (Input.GetKeyDown(KeyCode.W)||(Input.GetButtonDown("SJump"))))
+        if (grounded && (Input.GetButtonDown("SJump")))
         {
             if (animator.GetBool("Attack"))
                 return;
@@ -199,7 +219,7 @@ public class SPlayerCtrl : MonoBehaviour {
         }
     }
     //Down和Up状态的移动
-    public void MoveGHor(int direction)
+    public void MoveGHor(float direction)
     {
         //更新外界对角色水平移动速度限制
         hSpeed = platSpeed + environSpeed;
@@ -222,7 +242,7 @@ public class SPlayerCtrl : MonoBehaviour {
                 jumpInitial = false;
             }
             //启动后在跳跃判定时间内，按住跳跃键会持续施加刚体力
-            else if (jumpTimer > 0 && (Input.GetKey(KeyCode.W) || (Input.GetButton("SJump"))))
+            else if (jumpTimer > 0 && (Input.GetButton("SJump")))
             {
                 jumpTimer -= Time.fixedDeltaTime;
                 rBody.AddForce(Vector2.up * jumpForce * direction);
@@ -243,10 +263,10 @@ public class SPlayerCtrl : MonoBehaviour {
             return;
         }
         //水平移动（direction==0无限制时，以下写法影响惯性）
-        if (hor == 1)
-            MoveGHor(1);
-        else if (hor == -1)
-            MoveGHor(-1);
+        if (Mathf.Abs(hor) >= 0.5f)
+        {
+            MoveGHor(hor);
+        }
         else
             MoveGHor(0);
         //跳跃
@@ -261,10 +281,10 @@ public class SPlayerCtrl : MonoBehaviour {
             return;
         }
         //水平移动（direction==0无限制时，以下写法影响惯性）
-        if (hor == 1)
-            MoveGHor(-1);
-        else if (hor == -1)
-            MoveGHor(1);
+        if (Mathf.Abs(hor) >= 0.5f)
+        {
+            MoveGHor(hor);
+        }
         else
             MoveGHor(0);
         //跳跃
@@ -273,7 +293,7 @@ public class SPlayerCtrl : MonoBehaviour {
     }
 
     //Right和Left状态的移动
-    void MoveGVer(int direction)
+    void MoveGVer(float direction)
     {
         //更新外界对角色竖直移动速度限制
         hSpeed = platSpeed + environSpeed;
@@ -297,7 +317,7 @@ public class SPlayerCtrl : MonoBehaviour {
                 jumpInitial = false;
             }
             //启动后在跳跃判定时间内，按住跳跃键会持续施加刚体力
-            else if (jumpTimer > 0 && (Input.GetKey(KeyCode.W) || (Input.GetButton("SJump"))))
+            else if (jumpTimer > 0 && (Input.GetButton("SJump")))
             {
                 jumpTimer -= Time.fixedDeltaTime;
                 rBody.AddForce(Vector2.right * jumpForce * direction);
@@ -317,10 +337,10 @@ public class SPlayerCtrl : MonoBehaviour {
             return;
         }
         //水平移动（direction==0无限制时，以下写法影响惯性）
-        if (hor == 1)
-            MoveGVer(1);
-        else if (hor == -1)
-            MoveGVer(-1);
+        if (Mathf.Abs(ver) >= 0.5)
+        {
+            MoveGVer(-ver);
+        }
         else
             MoveGVer(0);
         //跳跃
@@ -335,10 +355,10 @@ public class SPlayerCtrl : MonoBehaviour {
             return;
         }
         //水平移动（direction==0无限制时，以下写法影响惯性）
-        if (hor == 1)
-            MoveGVer(-1);
-        else if (hor == -1)
-            MoveGVer(1);
+        if(Mathf.Abs(ver) >= 0.5)
+        {
+            MoveGVer(-ver);
+        }
         else
             MoveGVer(0);
         //跳跃
@@ -349,7 +369,7 @@ public class SPlayerCtrl : MonoBehaviour {
     // 落地检验
     void GroundCheck()
     {
-        grounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, isGround);
+        grounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, isGround);
         animator.SetBool("Ground", grounded);
     }
     //转向

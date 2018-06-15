@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Life: 5
-  Speed: 6
+  Speed: 5
   Target: {fileID: 1866585594155894}
   lpCtrl: {fileID: 0}
   spCtrl: {fileID: 0}
