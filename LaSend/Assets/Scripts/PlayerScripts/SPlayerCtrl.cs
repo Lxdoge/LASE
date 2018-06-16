@@ -416,4 +416,5 @@ public class SPlayerCtrl : MonoBehaviour {
             GetComponent<PolygonCollider2D>().enabled = true;
         }
     }
+
 }

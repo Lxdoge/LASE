@@ -9,7 +9,6 @@ public class CollectionCtrl : MonoBehaviour {
 
     public GameObject gameManager;
     GameManager manager;
-    CircleCollider2D Box;
     bool isCollected;
     public int NumofCollection;       //在关卡内的编号，外部定义
     public int Level_Num;             //关卡编号，外部定义
@@ -19,7 +18,6 @@ public class CollectionCtrl : MonoBehaviour {
     // Use this for initialization
     void Start () {
         manager = gameManager.GetComponent<GameManager>();
-        Box = GetComponent<CircleCollider2D>();
         switch (Level_Num)
         {
             case 1:

@@ -6,10 +6,14 @@ using DG.Tweening;
 public class GameStart : MonoBehaviour {
     public GameObject select_level;
     public RawImage Logo;
-	// Use this for initialization
-	void Start () {
+    public GameObject butterfly;
+    public GameObject butterfly2;
+    // Use this for initialization
+    void Start () {
         Logo.color = Color.clear;
-	}
+        butterfly.GetComponent<SpriteRenderer>().enabled = false;
+        //butterfly2.GetComponent<SpriteRenderer>().enabled = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -32,6 +36,8 @@ public class GameStart : MonoBehaviour {
         if(Logo)
         {
             Logo.DOColor(Color.white,3.0f);
+            butterfly.GetComponent<SpriteRenderer>().enabled = true;
+            //butterfly2.GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 }

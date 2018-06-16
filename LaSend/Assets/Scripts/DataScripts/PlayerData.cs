@@ -14,6 +14,14 @@ public class PlayerData {
     /// ///////////////第一关收集品//////////////////////////
     /// </summary>
     public Collection[] collection_1;
+    /// <summary>
+    /// ///////////////第二关收集品//////////////////////////
+    /// </summary>
+    public Collection[] collection_2;
+    /// /// <summary>
+    /// ///////////////第二关收集品//////////////////////////
+    /// </summary>
+    public Collection[] collection_3;
 
     public PlayerData()
     {
@@ -54,5 +62,15 @@ public class PlayerData {
     public void GetCollection_1(int num)
     {
         collection_1[num] = new Collection(num, true);
+    }
+
+    public void GetCollection_2(int num)
+    {
+        collection_2[num] = new Collection(num, true);
+    }
+
+    public void GetCollection_3(int num)
+    {
+        collection_3[num] = new Collection(num, true);
     }
 }

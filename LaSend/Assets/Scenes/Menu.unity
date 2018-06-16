@@ -250,7 +250,6 @@ MonoBehaviour:
   sPlayer: {fileID: 1163713795116864, guid: 6e076b89b951bb145bede090bf13e629, type: 2}
   levelNum: 0
   pause: 0
-  gameclear: 0
   gameover: 0
   boss: 0
 --- !u!114 &58356522
@@ -266,6 +265,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   select_level: {fileID: 409644240}
   Logo: {fileID: 1690434596}
+  butterfly: {fileID: 1538158997}
+  butterfly2: {fileID: 0}
 --- !u!1 &64676341
 GameObject:
   m_ObjectHideFlags: 0
@@ -4006,7 +4007,7 @@ MonoBehaviour:
   move: 1
   fade: 0
   fadeTime: 0
-  destination: {x: 966, y: 263.4}
+  destination: {x: 966, y: 200}
   rotspeed: 20
   moveTime: 2.9
   waitTime: 0
@@ -4378,7 +4379,7 @@ MonoBehaviour:
   move: 1
   fade: 0
   fadeTime: 0
-  destination: {x: -1120, y: 0}
+  destination: {x: -1300, y: 0}
   rotspeed: 20
   moveTime: 2.3
   waitTime: 0
@@ -4542,7 +4543,7 @@ MonoBehaviour:
   move: 1
   fade: 0
   fadeTime: 0
-  destination: {x: -790, y: -140}
+  destination: {x: -790, y: -300}
   rotspeed: 22
   moveTime: 2.5
   waitTime: 0
@@ -8871,7 +8872,7 @@ MonoBehaviour:
   move: 1
   fade: 0
   fadeTime: 0
-  destination: {x: -950, y: -450}
+  destination: {x: -940, y: -550}
   rotspeed: 20
   moveTime: 2.1
   waitTime: 0
@@ -8963,7 +8964,7 @@ MonoBehaviour:
   move: 1
   fade: 0
   fadeTime: 0
-  destination: {x: 946, y: -387.8}
+  destination: {x: 946, y: -100}
   rotspeed: 28
   moveTime: 2.9
   waitTime: 0
@@ -9410,7 +9411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1460075116
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9754,8 +9755,8 @@ GameObject:
   - component: {fileID: 1538159000}
   - component: {fileID: 1538158999}
   - component: {fileID: 1538158998}
-  m_Layer: 0
-  m_Name: New Sprite
+  m_Layer: 5
+  m_Name: butterfly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9770,7 +9771,7 @@ Animator:
   m_GameObject: {fileID: 1538158997}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 971d4f396bb1bfe468b19c3c0c3204e7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 92bc0cdf9cfc0ce4ab0c551bc9c353cb, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -9829,7 +9830,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1538158997}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.55, y: -2.65, z: 0}
+  m_LocalPosition: {x: -3.42, y: -2.43, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 8}
   m_Children: []
   m_Father: {fileID: 0}
@@ -10219,7 +10220,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 1023eba68bf6e2f418f6c9966a5c9541, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fd005336daffe104aaddc29f1e1df410, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12270,7 +12271,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 40dc13437e2eb65408dfbbc639ad4c04, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e877f2da0d6c3b14c829af5cb6ef1f59, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
