@@ -12,6 +12,7 @@ public class SavePointCtrl : MonoBehaviour
     //public Material Default_m;
     public Sprite Light_sp;        //点亮后的图像 外部定义
     BoxCollider2D Box;
+    public GameObject Fire;
     // Use this for initialization
     void Start ()
     {
@@ -32,6 +33,7 @@ public class SavePointCtrl : MonoBehaviour
     {
         //spriteRenderer.material = Default_m;
         spriteRenderer.sprite = Light_sp;
+        Fire.SetActive(true);
         Box.enabled = false;
         enabled = false;
     }
