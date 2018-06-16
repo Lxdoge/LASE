@@ -23,8 +23,12 @@ public class CollectionCtrl : MonoBehaviour {
             case 1:
                 isCollected = manager.pd.collection_1[NumofCollection]._isCollected;
                 break;
-            case 2:break;
-            case 3:break;
+            case 2:
+                isCollected = manager.pd.collection_2[NumofCollection]._isCollected;
+                break;
+            case 3:
+                isCollected = manager.pd.collection_3[NumofCollection]._isCollected;
+                break;
         }
         
     }
@@ -39,8 +43,12 @@ public class CollectionCtrl : MonoBehaviour {
                 case 1:
                     isCollected = manager.pd.collection_1[NumofCollection]._isCollected;
                     break;
-                case 2: break;
-                case 3: break;
+                case 2:
+                    isCollected = manager.pd.collection_2[NumofCollection]._isCollected;
+                    break;
+                case 3:
+                    isCollected = manager.pd.collection_3[NumofCollection]._isCollected;
+                    break;
             }
         }
         if (isCollected)//已收集状态
@@ -61,7 +69,19 @@ public class CollectionCtrl : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D obj)
     {
         isCollected = true;
-        manager.pd.GetCollection_1(NumofCollection);//记录但并不立刻写入存档
+        switch (Level_Num)
+        {
+            case 1:
+                manager.pd.GetCollection_1(NumofCollection);//记录但并不立刻写入存档
+                break;
+            case 2:
+                manager.pd.GetCollection_2(NumofCollection);//记录但并不立刻写入存档
+                break;
+            case 3:
+                manager.pd.GetCollection_3(NumofCollection);//记录但并不立刻写入存档
+                break;
+        }
+        
         /*
         string ta = obj.gameObject.tag;
         if(ta=="LPlayer"||ta=="SPlayer")

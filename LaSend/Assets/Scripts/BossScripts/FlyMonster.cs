@@ -16,13 +16,17 @@ public class FlyMonster : MonoBehaviour {
     float Dis;
     int Direction;
     public float Speed;             //移动速度
+
+    public GameObject death;
     // Use this for initialization
     void Start () {
         rBody = GetComponent<Rigidbody2D>();
         OntheWay = true;
         Direction = 1;
         FacingRight = false;
-	}
+        Manager = gameManager.GetComponent<GameManager>();
+        
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -43,6 +47,13 @@ public class FlyMonster : MonoBehaviour {
 
     private void FixedUpdate()
     {
+        if (Manager.gameover)
+        {
+            GetComponent<Collider2D>().enabled = true;
+            GetComponent<SpriteRenderer>().enabled = true;
+            death.SetActive(true);
+            rBody.velocity = new Vector3(WayPoint[NextPoint].transform.position.x - transform.position.x, WayPoint[NextPoint].transform.position.y - transform.position.y).normalized * Speed;
+        }
         if (!OntheWay)
         {
             rBody.velocity = new Vector3(WayPoint[NextPoint].transform.position.x - transform.position.x, WayPoint[NextPoint].transform.position.y - transform.position.y).normalized * Speed;
@@ -60,8 +71,12 @@ public class FlyMonster : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<SpriteRenderer>().enabled = false;
+        death.SetActive(false);
+        rBody.velocity = Vector3.zero;
     }
+    
 
     //转向
     void Flip()

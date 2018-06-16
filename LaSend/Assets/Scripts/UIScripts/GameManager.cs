@@ -63,10 +63,16 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex != 0 && SceneManager.GetActiveScene().name != "Loading")
         {
             panelpause = GameObject.Find("Panel_Pause");
-            if (Input.GetKeyDown(KeyCode.Escape) && panelpause)
+            if (Input.GetKeyDown(KeyCode.Escape) && panelpause && !pause)
             {
                 pause = !pause;
+                Time.timeScale = 0;
                 //Debug.Log(pause);
+            }
+            else if (Input.GetKeyDown(KeyCode.Escape) && panelpause && pause)
+            {
+                pause = !pause;
+                Time.timeScale = 1;
             }
 
             if (pause == true)
@@ -75,11 +81,10 @@ public class GameManager : MonoBehaviour
                 Tweener pauseout = panelpause.GetComponent<RectTransform>().DOLocalMoveX(0, 0.2f);
                 pauseout.SetUpdate(true);
                 //panelpause.GetComponent<RectTransform>().DOMoveX(0f,0.1f, true);
-                Time.timeScale = 0;
+                
             }
             else if (pause == false)
             {
-                Time.timeScale = 1;
                 Tweener pausein = panelpause.GetComponent<RectTransform>().DOLocalMoveX(960, 0.2f);
                 pausein.SetUpdate(true);
             }
@@ -87,7 +92,6 @@ public class GameManager : MonoBehaviour
         else
         {
             pause = false;
-            Time.timeScale = 1;
             panelpause = null;
         }
         
@@ -173,7 +177,12 @@ public class GameManager : MonoBehaviour
                 pd.SavePoint(0);
                 Save();
                 break;
-            case 3:break;//loading
+            case 3:
+                pd.PlayerPos(new Vector3(-3.64f, 0.23f, 0));
+                pd.PlayerLevel(3);
+                pd.SavePoint(0);
+                Save();
+                break;//loading
         }
         SceneManager.LoadScene("Loading");
     }

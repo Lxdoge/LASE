@@ -32,8 +32,14 @@ public class PlayerData {
         for (int i = 0; i < 7; i++)
             savePoint[i] = new SavePoint(i, false);
         collection_1 = new Collection[7];
+        collection_2 = new Collection[7];
+        collection_3 = new Collection[7];
         for (int i = 0; i < 7; i++)
             collection_1[i] = new Collection(i, false);
+        for (int i = 0; i < 7; i++)
+            collection_2[i] = new Collection(i, false);
+        for (int i = 0; i < 7; i++)
+            collection_3[i] = new Collection(i, false);
     }
     // Use this for initialization
     void Start () {

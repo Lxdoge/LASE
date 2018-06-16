@@ -47,7 +47,17 @@ public class BossTrigger : MonoBehaviour {
         }
         if(Life == 0)
         {
-            BossOff();
+            Manager.boss = false;
+            Danger.SetActive(false);
+            //切BGM
+            BGM.clip = NormalBgm;
+            BGM.Play();
+            BSM.status = BossStateMachine.Status.NotActive;
+            gameObject.SetActive(false);
+            for (int i = 0; i < 8; i++)
+            {
+                Body[i].SetActive(false);
+            }
         }
 	}
 

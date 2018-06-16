@@ -25,7 +25,7 @@ public class LoadScene : MonoBehaviour
         //显示进度条
         loadingSlider.value = 0.0f;
 
-        
+        Time.timeScale = 1.0f;
         //启动协程  
         StartCoroutine(AsyncLoading());
     }
