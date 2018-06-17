@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 10
-  speed: 3
+  speed: 2.5
   toL: 0
   targetpos: {x: 0, y: 0, z: 0}
   gameManager: {fileID: 0}

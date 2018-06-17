@@ -17,6 +17,8 @@ public class SPlayerCtrl : MonoBehaviour {
     public GameObject lMark;           //转向标记
     [HideInInspector]
     public bool death;         //死亡
+    [HideInInspector]
+    public bool disabled;      //不可控制状态
     /// <summary>
     /// /////////////////////////水平移动变量//////////////////////////////////
     /// </summary>
@@ -59,9 +61,7 @@ public class SPlayerCtrl : MonoBehaviour {
     public float EnergyRecall;         //能量恢复速度
     float senergy;//energy范围默认0到1
 
-
-    // 初始化
-    void Start()
+    private void Awake()
     {
         status = Status.down;
         rBody = GetComponent<Rigidbody2D>();
@@ -70,6 +70,12 @@ public class SPlayerCtrl : MonoBehaviour {
         platSpeed = 0.0f;
         environSpeed = 0.0f;
         senergy = 1;
+        disabled = false;
+    }
+    // 初始化
+    void Start()
+    {
+        
     }
 
     // 每帧检测并更新状态
@@ -132,12 +138,16 @@ public class SPlayerCtrl : MonoBehaviour {
         GChangeCheck();
         DeathCheck();
         GroundCheck();
+        if (grounded)
+            disabled = false;
     }
 
     //
     private void FixedUpdate()
     {
         rBody.AddForce(Sgravity2D);
+        if (disabled)
+            return;
         switch (status)
         {
             case Status.down:

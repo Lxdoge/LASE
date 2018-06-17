@@ -22,6 +22,8 @@ public class LPlayerCtrl : MonoBehaviour
     public bool facingRight;   //角色朝向
     [HideInInspector]
     public bool death;         //死亡
+    [HideInInspector]
+    public bool disabled;      //不可控制状态
     /// <summary>
     /// /////////////////////////水平移动变量//////////////////////////////////
     /// </summary>
@@ -61,20 +63,25 @@ public class LPlayerCtrl : MonoBehaviour
     public float EnergySpeed;          //能量消耗速度（1/t）
     public float EnergyRecall;         //能量恢复速度
     float lenergy;//energy范围默认0到1
-    // 初始化
-    void Start()
+
+    private void Awake()
     {
         facingRight = false;
         death = false;
         status = Status.normal;
         rBody = GetComponent<Rigidbody2D>();
-        animator = GetComponentInChildren<Animator>();
-        ghost = GetComponentInChildren<GhostSprites>();
         polygonCollider2D = GetComponent<PolygonCollider2D>();
         circleCollider2D = GetComponent<CircleCollider2D>();
         platSpeed = 0.0f;
         environSpeed = 0.0f;
         lenergy = 1;
+        disabled = false;
+    }
+    // 初始化
+    void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
+        ghost = GetComponentInChildren<GhostSprites>();
     }
 
     // 每帧检测并更新状态
@@ -90,7 +97,6 @@ public class LPlayerCtrl : MonoBehaviour
             case Status.death:
                 DeathCtrl();
                 break;
-
         }
         
 	}
@@ -98,6 +104,8 @@ public class LPlayerCtrl : MonoBehaviour
     // 固定间隔根据角色状态更新物理系统
     private void FixedUpdate()
     {
+        if (disabled)
+            return;
         switch (status)
         {
             case Status.normal:
@@ -233,6 +241,8 @@ public class LPlayerCtrl : MonoBehaviour
         animator.SetFloat("Hor", Mathf.Abs(hor));
         LSlider.value = lenergy;
         GroundCheck();
+        if (grounded)
+            disabled = false;
     }
     void NormalFixedCtrl()
     {
@@ -296,6 +306,8 @@ public class LPlayerCtrl : MonoBehaviour
         LightEnd();
         DeathCheck();
         LSlider.value = lenergy;
+        if (disabled)
+            disabled = false;
     }
     void LightFixedCtrl()
     {
