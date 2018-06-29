@@ -178,7 +178,8 @@ public class GameManager : MonoBehaviour
                 Save();
                 break;
             case 3:
-                pd.PlayerPos(new Vector3(-3.64f, 0.23f, 0));
+                pd = new PlayerData();
+                pd.PlayerPos(new Vector3(-3f, 0f, 0));
                 pd.PlayerLevel(3);
                 pd.SavePoint(0);
                 Save();
