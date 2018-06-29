@@ -8,6 +8,7 @@ public class JumpMonster : MonoBehaviour {
     public LayerMask isGround;         //地面层
     public float JumpSpeed;
     bool grounded;
+    public Transform Pos;
 	// Use this for initialization
 	void Start () {
         rBody = GetComponent<Rigidbody2D>();
@@ -18,7 +19,10 @@ public class JumpMonster : MonoBehaviour {
 	void Update () {
         GroundCheck();
         if (grounded)
+        {
+            transform.position = Pos.position;
             rBody.velocity = new Vector2(0, JumpSpeed);
+        }
     }
     void GroundCheck()
     {

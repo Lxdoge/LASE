@@ -182,6 +182,8 @@ public class GameManager : MonoBehaviour
                 pd.PlayerLevel(3);
                 pd.SavePoint(0);
                 Save();
+                break;
+            case 4:
                 break;//loading
         }
         SceneManager.LoadScene("Loading");

@@ -15,6 +15,7 @@ public class SPlayerCtrl : MonoBehaviour {
     [HideInInspector]
     public bool facingRight = false;   //角色朝向
     public GameObject lMark;           //转向标记
+    PolygonCollider2D polygonCollider2D;
     [HideInInspector]
     public bool death;         //死亡
     [HideInInspector]
@@ -66,6 +67,7 @@ public class SPlayerCtrl : MonoBehaviour {
         status = Status.down;
         rBody = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
+        polygonCollider2D = GetComponent<PolygonCollider2D>();
         Sgravity2D = new Vector2(0, -29.43f);
         platSpeed = 0.0f;
         environSpeed = 0.0f;
@@ -225,7 +227,7 @@ public class SPlayerCtrl : MonoBehaviour {
             status = Status.death;
             rBody.velocity = Vector3.zero;
             Sgravity2D = Vector2.zero;
-            GetComponent<PolygonCollider2D>().enabled = false;
+            polygonCollider2D.enabled = false;
         }
     }
     //Down和Up状态的移动
@@ -419,11 +421,10 @@ public class SPlayerCtrl : MonoBehaviour {
     {
         if (!animator.GetBool("Death"))
         {
-
             Sgravity2D = new Vector2(0, -29.43f);
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             status = Status.down;
-            GetComponent<PolygonCollider2D>().enabled = true;
+            polygonCollider2D.enabled = true;
         }
     }
 
